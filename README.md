@@ -1,3 +1,5 @@
+# README EDITADO
+
 # 🍕 Pizzería API - Sistema de Pedidos
 
 Este proyecto implementa una API REST para gestionar pedidos de una pizzería. Se pueden crear pedidos, cancelarlos, obtener pedidos por ID o filtrar por estado.
