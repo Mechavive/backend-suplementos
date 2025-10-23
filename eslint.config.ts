@@ -1,60 +1,3 @@
-// import js from '@eslint/js';
-// import globals from 'globals';
-// import tseslint from 'typescript-eslint';
-// import json from '@eslint/json';
-// import prettier from 'eslint-plugin-prettier';
-// import { defineConfig } from 'eslint/config';
-
-// export default defineConfig([
-//   // Reglas para JS/TS
-//   {
-//     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-//     languageOptions: {
-//       globals: globals.node,
-//     },
-//     plugins: {
-//       js,
-//       prettier,
-//     },
-//     rules: {
-//       ...js.configs.recommended.rules,
-//       'prettier/prettier': 'error', // marca errores de formato como errores ESLint
-//     },
-//   },
-
-//   // Reglas específicas de TypeScript
-//   {
-//     files: ['**/*.ts'],
-//     languageOptions: {
-//       parser: tseslint.parser,
-//       parserOptions: {
-//         project: './tsconfig.json',
-//         sourceType: 'module',
-//       },
-//     },
-//     plugins: {
-//       '@typescript-eslint': tseslint.plugin,
-//       prettier,
-//     },
-//     rules: {
-//       ...tseslint.configs.recommendedTypeChecked[0].rules,
-//       'prettier/prettier': 'error',
-//     },
-//   },
-
-//   // Reglas para JSON
-//   {
-//     files: ['**/*.json'],
-//     language: 'json/json',
-//     plugins: {
-//       json,
-//     },
-//     rules: {
-//       ...json.configs.recommended.rules,
-//     },
-//   },
-// ]);
-
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -130,7 +73,7 @@ export default defineConfig([
     files: ['**/*.test.ts'],
     languageOptions: {
       globals: {
-        ...globals.jest, // 👈 habilita los globals de Jest
+        ...globals.jest, // habilita los globals de Jest
       },
     },
   }

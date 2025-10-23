@@ -1,69 +1,294 @@
-# README EDITADO
-
-# 🍕 Pizzería API - Sistema de Pedidos
-
-Este proyecto implementa una API REST para gestionar pedidos de una pizzería. Se pueden crear pedidos, cancelarlos, obtener pedidos por ID o filtrar por estado.
-
-## 🚀 Tecnologías usadas
-
-- Node.js + Express
-- TypeScript
-- Zod (validaciones)
-- Jest (tests unitarios e integración)
+#  Trabajo Final Integrador — Backend eCommerce (Node + TypeScript + PostgreSQL)
 
 ---
 
-## 📦 Scripts disponibles
+## 📘 Entidades y Relaciones
 
-```bash
-# Instalar dependencias
-npm install
+### 🔹 **User**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `user_id` | number (PK) | Identificador único del usuario |
+| `name` | string | Nombre completo |
+| `email` | string | Correo electrónico |
+| `password` | string | Contraseña hasheada |
+| `address` | string | Dirección del usuario |
+| `role` | enum("ADMIN", "USER") | Rol del usuario |
 
-# Compilar TypeScript en modo watch
-npm run build
+**Relaciones:**
+- Tiene muchos `Order` (1:N)
+- Tiene una `Cart` (1:1)
+- Puede hacer muchas `Review` (1:N)
 
-# Correr la app en desarrollo con ts-node-dev, en otra terminal (para usar postman)
-npm run dev
+---
 
-# Ejecutar tests unitarios (en otra terminal)
-npm run test
+### 🔹 **Order**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `order_id` | number (PK) | Identificador único del pedido |
+| `user_id` | User (FK) | Usuario que realizó la orden |
+| `status` | enum("pending", "paid", "cancel") | Estado de la orden |
+| `total` | number | Total de la orden |
+| `order_date` | date | Fecha de creación |
 
-# Ver reporte de cobertura
-npm run test:coverage
+**Relaciones:**
+- Pertenece a un `User` (N:1)
+- Tiene muchos `Order_Detail` (1:N)
+
+---
+
+### 🔹 **Order_Detail**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `id_detail` | number (PK) | Identificador del detalle |
+| `id_order` | Order (FK) | Orden a la que pertenece |
+| `id_product` | Product (FK) | Producto incluido |
+| `quantity` | number | Cantidad |
+| `unit_price` | number | Precio unitario |
+| `subtotal` | number | Calculado: `unit_price * quantity` |
+
+**Relaciones:**
+- Pertenece a una `Order` (N:1)
+- Contiene un `Product` (N:1)
+
+---
+
+### 🔹 **Product**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `product_id` | number (PK) | Identificador único del producto |
+| `name` | string | Nombre del producto |
+| `price` | number | Precio |
+| `image` | string | Imagen del producto |
+| `category` | Category (FK) | Categoría asociada |
+| `stock` | number | Stock disponible |
+| `rating` | number | Promedio de calificación (sincronizado automáticamente) |
+| `brand` | string | Marca del producto |
+| `description` | string | Descripción detallada |
+
+**Relaciones:**
+- Pertenece a una `Category` (N:1)
+- Está en muchos `Order_Detail` (N:M)
+- Está en muchos `Item_Cart` (N:M)
+- Tiene muchas `Review` (1:N)
+
+---
+
+### 🔹 **Category**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `category_id` | number (PK) | Identificador de la categoría |
+| `name` | string | Nombre |
+| `description` | string | Descripción |
+
+**Relaciones:**
+- Tiene muchos `Product` (1:N)
+
+---
+
+### 🔹 **Cart**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `cart_id` | number (PK) | Identificador del carrito |
+| `user_id` | User (FK) | Usuario dueño del carrito |
+
+**Relaciones:**
+- Pertenece a un `User` (1:1)
+- Tiene muchos `Item_Cart` (1:N)
+
+---
+
+### 🔹 **Item_Cart**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `item_id` | number (PK) | Identificador del ítem |
+| `cart_id` | Cart (FK) | Carrito al que pertenece |
+| `product_id` | Product (FK) | Producto agregado |
+| `quantity` | number | Cantidad seleccionada |
+
+**Relaciones:**
+- Pertenece a un `Cart` (N:1)
+- Contiene un `Product` (N:1)
+
+---
+
+### 🔹 **Review**
+| Campo | Tipo | Descripción |
+|-------|------|--------------|
+| `review_id` | number (PK) | Identificador de la reseña |
+| `user_id` | User (FK) | Usuario que opinó |
+| `product_id` | Product (FK) | Producto reseñado |
+| `qualification` | number (1–5) | Calificación |
+| `comment` | string | Comentario del usuario |
+| `date` | date | Fecha de la reseña |
+
+**Relaciones:**
+- Pertenece a un `User` (N:1)
+- Pertenece a un `Product` (N:1)
+
+---
+
+## 🧩 UML
+![Diagrama UML](./images/UML%20TP%20Integrador.jpg)
+
+
+---
+
+## 📁 Estructura del Proyecto
 ```
 
-| ID    | Caso / Descripción                        | Precondición           | Input                                           | Acción                | Resultado esperado                              | Test                                                                                      |
-|-------|------------------------------------------|------------------------|------------------------------------------------|-----------------------|-------------------------------------------------|-------------------------------------------------------------------------------------------|
-| CA1   | Crear orden válida                       | Mock limpio            | POST /orders {address≥10, items no vacíos, size} | Crear orden           | 201 OK, orden creada con id, precio, status pending | Integración: "debería crear una orden válida" / Unitario: "debería crear una orden correctamente" |
-| CA2   | Crear orden con items vacío              | Mock limpio            | POST /orders {items: []}                        | Crear orden           | 422 error "al menos un ítem"                      | Integración: "debería retornar 422 si no se envían ítems"                                  |
-| CA3   | Crear orden con dirección <10 chars      | Mock limpio            | POST /orders {address <10 chars}                | Crear orden           | 422 error validación                             | Integración: "debería fallar si la dirección es muy corta"                                |
-| CA4   | Crear orden con >5 toppings               | Mock limpio            | POST /orders {items: 6 toppings}                 | Crear orden           | Error "Máximo 5 toppings"                        | Unitario: "lanza error si se agregan más de 5 toppings"                                  |
-| CA5   | Obtener orden por ID válida               | Orden creada           | GET /orders/:id válido                           | Obtener orden         | 200 OK con la orden                              | Integración: "debería obtener una orden por ID"                                           |
-| CA6   | Obtener orden por ID inexistente          | Mock limpio            | GET /orders/9999                                | Obtener orden         | 404 error "Orden no encontrada"                  | Integración: "debería devolver 404 si el ID no existe en getOrder"                       |
-| CA7   | Cancelar orden con status != delivered    | Orden con status pending| POST /orders/:id/cancel                         | Cancelar orden        | 200 OK con status "cancelled"                    | Integración: "debería permitir cancelar una orden pendiente" / Unitario: "cancela una orden correctamente si aún no fue entregada" |
-| CA8   | Cancelar orden con status delivered       | Orden con status delivered | POST /orders/:id/cancel                      | Cancelar orden        | 409 error "No se puede cancelar una orden entregada" | Integración: "debería devolver 409 si se intenta cancelar una orden entregada" / Unitario: "no permite cancelar una orden entregada" |
-| CA9   | Filtrar órdenes por estado                 | Varias órdenes creadas | GET /orders?status=pending                      | Obtener lista filtrada | 200 OK con array órdenes status "pending"       | Integración: "debería filtrar órdenes por estado"                                        |
-| ERR1  | Estado query inválido                      | Mock limpio            | GET /orders?status=noexiste                     | Validar query         | 422 error validación                             | Integración: "debería devolver 422 si el estado en el query no es válido"                 |
-| ERR2  | ID param inválido en cancel                | Mock limpio            | POST /orders/ /cancel (id inválido)             | Validar params        | 404 error                                        | Integración: "debería devolver 404 si el id en params no es válido"                       |
+TrabajoFinalIntegrador/
+├── coverage/                          # Reportes de cobertura de tests
+├── dist/                              # Archivos compilados de TypeScript
+├── images/                            # Imágenes utilizadas (productos, etc.)
+├── node_modules/
 
+├── src/
+│
+│   ├── app.ts                         # Configuración principal de Express
+│   ├── index.ts                       # Punto de entrada del servidor
+│
+│   ├── controllers/                   # Controladores (MVC)
+│   │   ├── user.controller.ts
+│   │   ├── product.controller.ts
+│   │   ├── order.controller.ts
+│   │   ├── cart.controller.ts
+│   │   ├── category.controller.ts
+│   │   ├── review.controller.ts
+│   │   ├── itemCart.controller.ts
+│   │   └── orderDetail.controller.ts
+│
+│   ├── middlewares/                  # Middlewares
+│   │   ├── auth.middleware.ts
+│   │   ├── errorHandler.ts
+│   │   └── validate.ts
+│
+│   ├── models/                        # Modelos de datos y conexión
+│   │
+│   │   ├── implementations/
+│   │   │   ├── mock/                  # Implementación Mock (fase inicial)
+│   │   │   │   ├── mockUser.ts
+│   │   │   │   ├── mockProduct.ts
+│   │   │   │   ├── mockOrder.ts
+│   │   │   │   ├── mockOrderDetail.ts
+│   │   │   │   ├── mockCart.ts
+│   │   │   │   ├── mockItemCart.ts
+│   │   │   │   ├── mockCategory.ts
+│   │   │   │   └── mockReview.ts
+│   │   │   └── postgres/              # Implementación futura con ORM
+│   │   │       ├── user.model.ts
+│   │   │       ├── product.model.ts
+│   │   │       ├── order.model.ts
+│   │   │       ├── orderDetail.model.ts
+│   │   │       ├── cart.model.ts
+│   │   │       ├── itemCart.model.ts
+│   │   │       ├── category.model.ts
+│   │   │       └── review.model.ts
+│
+│   │   ├── interface/                 # Interfaces TypeScript de entidades
+│   │   │   ├── user.ts
+│   │   │   ├── product.ts
+│   │   │   ├── order.ts
+│   │   │   ├── orderDetail.ts
+│   │   │   ├── cart.ts
+│   │   │   ├── itemCart.ts
+│   │   │   ├── category.ts
+│   │   │   └── review.ts
+│
+│   │   ├── crud/                      # Interfaces CRUD de cada entidad
+│   │   │   ├── userCrud.interface.ts
+│   │   │   ├── productCrud.interface.ts
+│   │   │   ├── orderCrud.interface.ts
+│   │   │   ├── orderDetailCrud.interface.ts
+│   │   │   ├── cartCrud.interface.ts
+│   │   │   ├── itemCartCrud.interface.ts
+│   │   │   ├── categoryCrud.interface.ts
+│   │   │   └── reviewCrud.interface.ts
+│ 
+│   ├── repositories/                      # Opcional: separar lógica acceso a BD
+│   │   ├── user.repository.ts
+│   │   ├── product.repository.ts
+│   │   ├── order.repository.ts
+│   │   ├── orderDetail.repository.ts
+│		├── cart.repository.ts
+│		├── itemCart.repository.ts
+│		├── category.repository.ts
+│		└── review.repository.ts
+│
+│   ├── routes/                        # Rutas de la API
+│   │   ├── user.routes.ts
+│   │   ├── product.routes.ts
+│   │   ├── order.routes.ts
+│   │   ├── orderDetail.routes.ts
+│   │   ├── cart.routes.ts
+│   │   ├── itemCart.routes.ts
+│   │   ├── category.routes.ts
+│   │   └── review.routes.ts
+│
+│   ├── schemas/                       # Validaciones (Zod o Joi)
+│   │   ├── user.schema.ts
+│   │   ├── product.schema.ts
+│   │   ├── order.schema.ts
+│   │   ├── orderDetail.schema.ts
+│   │   ├── cart.schema.ts
+│   │   ├── itemCart.schema.ts
+│   │   ├── category.schema.ts
+│   │   └── review.schema.ts
+│
+│   ├── services/                      # Lógica de negocio (services)
+│   │   ├── user.service.ts
+│   │   ├── product.service.ts
+│   │   ├── order.service.ts
+│   │   ├── orderDetail.service.ts
+│   │   ├── cart.service.ts
+│   │   ├── itemCart.service.ts
+│   │   ├── category.service.ts
+│   │   └── review.service.ts
+│
+│   ├── tests/                         # Testing
+│   │   ├── unit/
+│   │   │   ├── user.service.test.ts
+│   │   │   ├── product.service.test.ts
+│   │   │   ├── order.service.test.ts
+│   │   │   ├── orderDetail.service.test.ts
+│   │   │   ├── cart.service.test.ts
+│   │   │   ├── itemCart.service.test.ts
+│   │   │   ├── category.service.test.ts
+│   │   │   └── review.service.test.ts
+│   │   └── integration/
+│   │       ├── user.integration.test.ts
+│   │       ├── product.integration.test.ts
+│   │       ├── order.integration.test.ts
+│   │       ├── orderDetail.integration.test.ts
+│   │       ├── cart.integration.test.ts
+│   │       ├── itemCart.integration.test.ts
+│   │       ├── category.integration.test.ts
+│   │       └── review.integration.test.ts
+│
+│   ├── utils/                         # Utilidades generales
+│   │   ├── jwt.ts
+│   │   ├── hashPassword.ts
+│   │   ├── price.calculator.ts
+│   │   ├── rating.calculator.ts
+│   │   └── idGenerator.ts
+│
+│   ├── config/                        # Configuración centralizada (opcional)
+│   │   ├── db.config.ts
+│   │   ├── jwt.config.ts
+│   │   └── index.ts
+│
+│   └── dtos/                          # (opcional) DTOs para inputs/outputs
+│       ├── user.dto.ts
+│       ├── product.dto.ts
+│       └── ...
+│
+├── .env                               # Variables de entorno
+├── .gitignore
+├── jest.config.js                     # Configuración de Jest
+├── package.json
+├── package-lock.json
+├── readme.md
+├── tsconfig.json                      # Configuración de TypeScript
+├──eslint.config					   # Configuración de Eslint
+├──.prettierrc						   # Configuración de prettier
 
-
-## Otra forma para la matriz
-
-| ID    | Caso / Descripción                             | Precondición                | Input                                               | Acción                         | Resultado esperado                                     | Test                                       |
-|-------|-----------------------------------------------|----------------------------|-----------------------------------------------------|-------------------------------|-------------------------------------------------------|--------------------------------------------|
-| CA1   | Crear una orden correctamente                  | Repo limpio                | address: "123 Calle Falsa", items: ["queso","jamón"], size: "M" | createOrder                   | Orden creada con id, price > 0, status "pending"      | debería crear una orden correctamente      |
-| CA2   | No permite cancelar orden entregada            | Orden creada y status "delivered" | id de la orden creada                                | cancelOrder                   | Lanza error "No se puede cancelar un pedido entregado." | no permite cancelar una orden entregada    |
-| CA3   | Calcula precio correctamente                    | Repo limpio                | address: "123 Calle", items: ["muzzarella","jamón"], size: "L"  | createOrder                   | Precio = 12 + 2 * 1.5 = 15                             | calcula el precio correctamente             |
-| CA4   | Error si más de 5 toppings                      | Repo limpio                | address: "123 Calle", items: ["a","b","c","d","e","f"], size: "M" | createOrder                   | Lanza error "Máximo 5 toppings."                       | lanza error si se agregan más de 5 toppings |
-| CA5   | Cancela orden correctamente si no entregada    | Orden creada con status "pending" | id de la orden creada                                | cancelOrder                   | Status de orden cambia a "cancelled"                   | cancela una orden correctamente si aún no fue entregada |
-| INT1  | Crear orden válida vía API                       | Repo limpio                | POST /orders body: {address, items, size}           | HTTP POST /orders             | 201 Created, respuesta con id, price, size correcto    | debería crear una orden válida              |
-| INT2  | Fallar si dirección muy corta                    | Repo limpio                | POST /orders body con address muy corta              | HTTP POST /orders             | 422 Unprocessable Entity, error validación dirección   | debería fallar si la dirección es muy corta |
-| INT3  | Fallar si no se envían ítems                     | Repo limpio                | POST /orders body con items = []                      | HTTP POST /orders             | 422 Unprocessable Entity, error validación items       | debería retornar 422 si no se envían ítems  |
-| INT4  | Permitir cancelar orden pendiente                | Orden creada vía API        | POST /orders + POST /orders/:id/cancel                | HTTP POST /orders/:id/cancel  | 200 OK, status = "cancelled"                            | debería permitir cancelar una orden pendiente |
-| INT5  | Error 409 si se cancela orden entregada          | Orden creada y status "delivered" | POST /orders + POST /orders/:id/cancel                | HTTP POST /orders/:id/cancel  | 409 Conflict, error "no se puede cancelar"             | debería devolver 409 si se intenta cancelar una orden entregada |
-| INT6  | Filtrar órdenes por estado                        | Varias órdenes creadas      | GET /orders?status=pending                            | HTTP GET /orders              | 200 OK, lista órdenes con status = "pending"           | debería filtrar órdenes por estado          |
-| INT7  | Obtener orden por ID                              | Orden creada vía API        | GET /orders/:id                                      | HTTP GET /orders/:id          | 200 OK, orden con ID solicitado                         | debería obtener una orden por ID             |
-| INT8  | Error 404 si ID no existe en getOrder            | Repo limpio o id inválido   | GET /orders/9999                                     | HTTP GET /orders/:id          | 404 Not Found, error "Orden no encontrada"             | debería devolver 404 si el ID no existe en getOrder |
-| INT9  | Error 422 si estado en query no válido            | Repo limpio                | GET /orders?status=noexiste                          | HTTP GET /orders              | 422 Unprocessable Entity                                | debería devolver 422 si el estado en el query no es válido |
-| INT10 | Error 404 si ID inválido en cancel                | Repo limpio o id inválido   | POST /orders/ /cancel (id con espacio inválido)     | HTTP POST /orders/:id/cancel  | 404 Not Found                                           | debería devolver 404 si el id en params no es válido |
+```
