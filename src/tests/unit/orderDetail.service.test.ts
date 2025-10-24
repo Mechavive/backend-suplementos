@@ -1,74 +1,60 @@
-// import { describe, it, expect, beforeEach, beforeAll, Mock } from "vitest";
-// import { User } from "../../models/user.model";
-// import { MockUser } from "../../models/implementations/mock/mockUser";
-// let user2: User;
+// src/services/review.service.ts
 
-// beforeAll(() => {
-//   user2 = new User(2, "panchito04", "panchito04@gmail.com", 2910010011);
-// });
+import { OrderDetailInput } from '../../dtos/orderDetail.dto.js';
+import { OrderDetail } from '../../models/interface/orderDetail.js';
+import orderDetailService from '../../services/orderDetail.service.js';
 
-// let mock: MockUser;
-// let user1: User;
-// beforeEach(async () => {
-//   mock = new MockUser();
-//   user1 = new User(1, "marulete03", "marulete03@gmail.com", 2910020022);
-//   await mock.addUser(user1);
-// });
+describe('OrderDetail Service - Unit Tests', () => {
+  let createdOrderDetail: OrderDetail;
 
-// describe("Operaciones CRUD de mockUser", () => {
-//   it("Obtener usuarios", async () => {
-//     const usuarios = await mock.getUsers();
+  const sampleOrderDetail: OrderDetailInput = {
+    order_id: 1,
+    product_id: 1,
+    quantity: 4,
+    unit_price: 15000,
+  };
 
-//     expect(usuarios.length).toBeGreaterThan(0);
-//   });
+  beforeAll(async () => {
+    createdOrderDetail = await orderDetailService.create(sampleOrderDetail);
+  });
 
-//   it("Agregar un usuario", async () => {
-//     const usuarioAgregado = mock.addUser(user2);
-//     const usuarios = await mock.getUsers();
+  // para que me de info en consola
+  it('should create a new order detail', async () => {
+    console.log('Created review:', createdOrderDetail);
+    expect(createdOrderDetail).toHaveProperty('order_detail_id');
+    expect(createdOrderDetail.comment).toBe(sampleOrderDetail.comment);
+  });
 
-//     expect(usuarios.length).toBe(2);
-//   });
+  it('should return all order details', async () => {
+    const all = await orderDetailService.getAll();
+    console.log('All reviews:', all);
+    expect(all.length).toBeGreaterThan(0);
+  });
 
-//   it("Obtener usuario por id", async () => {
-//     const id = user1.getId();
-//     const usuarioEncontrado = await mock.getUser(id);
+  it('should get order details by order ID', async () => {
+    const ordersdetail = await orderDetailService.getByOrderId(sampleOrderDetail.product_id);
+    console.log(`order details for order_id=${sampleOrderDetail.order_id}:`, ordersdetail);
+    expect(ordersdetail.length).toBeGreaterThan(0);
+    expect(ordersdetail[0]!.order_id).toBe(sampleOrderDetail.product_id);
+  });
 
-//     expect(usuarioEncontrado).toEqual(user1);
-//   });
+  it('should get order details by product ID', async () => {
+    const ordersdetail = await orderDetailService.getByProductId(sampleOrderDetail.product_id);
+    console.log(`order details for product_ID=${sampleOrderDetail.product_id}:`, ordersdetail);
+    expect(ordersdetail.length).toBeGreaterThan(0);
+    expect(ordersdetail[0]!.product_id).toBe(sampleOrderDetail.product_id);
+  });
 
-//   it("Editar nombre de usuario", async () => {
-//     const id = user1.getId();
-//     const nuevoNombre = "CarlJohnson";
+  it('should delete a order detail', async () => {
+    const deleted = await orderDetailService.delete(createdOrderDetail.order_detail_id);
+    console.log(`Deleted order detail with id ${createdOrderDetail.order_detail_id}:`, deleted);
+    expect(deleted).toBe(true);
 
-//     const usuarioEditado = await mock.editUserUsername(id, nuevoNombre);
-
-//     expect(usuarioEditado.getUsername()).toBe(nuevoNombre);
-//   });
-
-//   it("Editar mail de usuario", async () => {
-//     const id = user1.getId();
-//     const nuevoMail = "CarlJohnson@gmail.com";
-
-//     const usuarioEditado = await mock.editUserEmail(id, nuevoMail);
-
-//     expect(usuarioEditado.getEmail()).toBe(nuevoMail);
-//   });
-
-//   it("Editar numero de telefono de usuario", async () => {
-//     const id = user1.getId();
-//     const nuevoNumero = 2919122018;
-
-//     const usuarioEditado = await mock.editUserPhonenumber(id, nuevoNumero);
-
-//     expect(usuarioEditado.getPhonenumber()).toBe(nuevoNumero);
-//   });
-
-//   it("Eliminar un usuario", async () => {
-//     const id = user1.getId();
-
-//     mock.deleteUser(id);
-//     const usuarios = await mock.getUsers();
-
-//     expect(usuarios.length).toBe(0);
-//   });
-// });
+    const deletedAgain = await orderDetailService.delete(createdOrderDetail.order_detail_id);
+    console.log(
+      `Deleted again review with id ${createdOrderDetail.order_detail_id}:`,
+      deletedAgain,
+    );
+    expect(deletedAgain).toBe(false);
+  });
+});
