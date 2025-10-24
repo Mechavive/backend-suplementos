@@ -19,3 +19,5 @@ class CartService {
     return MockCartModel.delete(id);
   }
 }
+
+export default new CartService()
