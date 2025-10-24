@@ -1,7 +1,7 @@
 // src/services/product.service.ts
 
 import MockProductModel from '../models/implementations/mock/mockProduct.js';
-import { Product } from '../models/interface/product.js';
+import { Product } from '../models/entity/product.entity.js';
 import { ProductUpdate } from '../models/implementations/mock/mockProduct.js';
 
 class ProductService {

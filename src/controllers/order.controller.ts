@@ -2,7 +2,7 @@
 
 import { Request, Response } from 'express';
 import OrderService from '../services/order.service.js';
-import { OrderStatus } from '../models/interface/order.js';
+import { OrderStatus } from '../models/entity/order.entity.js';
 
 class OrderController {
   async getAll(req: Request, res: Response) {
