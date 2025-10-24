@@ -14,6 +14,7 @@ class MockOrderDetail implements OrderDetailCrud {
         product_id: 1,
         quantity: 2,
         unit_price: 15000,
+        subtotal: 30000,
       },
       {
         order_detail_id: this.idCounter++,
@@ -21,6 +22,7 @@ class MockOrderDetail implements OrderDetailCrud {
         product_id: 2,
         quantity: 1,
         unit_price: 8000,
+        subtotal: 8000,
       },
     ];
   }
