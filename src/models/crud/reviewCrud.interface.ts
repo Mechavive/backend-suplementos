@@ -1,6 +1,6 @@
 // models/crud/reviewCrud.interface.ts
 
-import { Review } from '../interface/review.js';
+import { Review } from '../entity/review.entity.js';
 import { ReviewInput } from '../../dtos/review.dto.js';
 
 export interface ReviewCrud {

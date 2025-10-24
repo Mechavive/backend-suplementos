@@ -1,4 +1,4 @@
 // src/dtos/review.dto.ts
-import { Review } from '../models/interface/review.js';
+import { ReviewEntity } from '../models/entity/review.entity.js';
 
-export type ReviewInput = Omit<Review, 'review_id'>;
+export type ReviewInput = Omit<ReviewEntity, 'review_id'>;

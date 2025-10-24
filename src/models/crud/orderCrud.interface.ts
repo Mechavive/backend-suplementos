@@ -1,6 +1,6 @@
 // src/models/crud/orderCrud.interface.ts
 
-import { Order, OrderStatus } from '../interface/order.js';
+import { Order, OrderStatus } from '../entity/order.entity.js';
 import { OrderInput } from '../../dtos/order.dto.js';
 
 export interface OrderCrud {
