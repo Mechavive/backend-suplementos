@@ -1,6 +1,6 @@
 // src/controllers/user.controller.ts
-import { Request, Response } from "express";
-import { UserService } from "../services/user.service.js";
+import { Request, Response } from 'express';
+import { UserService } from '../services/user.service.js';
 
 const userService = new UserService();
 
@@ -18,7 +18,7 @@ class UserController {
     try {
       const id = Number(req.params.id);
       const user = await userService.getById(id);
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) return res.status(404).json({ message: 'User not found' });
       res.json(user);
     } catch (err: any) {
       res.status(500).json({ message: err.message });
@@ -38,7 +38,7 @@ class UserController {
     try {
       const id = Number(req.params.id);
       const updatedUser = await userService.update(id, req.body);
-      if (!updatedUser) return res.status(404).json({ message: "User not found" });
+      if (!updatedUser) return res.status(404).json({ message: 'User not found' });
       res.json(updatedUser);
     } catch (err: any) {
       res.status(400).json({ message: err.message });
@@ -49,8 +49,8 @@ class UserController {
     try {
       const id = Number(req.params.id);
       const success = await userService.delete(id);
-      if (!success) return res.status(404).json({ message: "User not found" });
-      res.json({ message: "User deleted successfully" });
+      if (!success) return res.status(404).json({ message: 'User not found' });
+      res.json({ message: 'User deleted successfully' });
     } catch (err: any) {
       res.status(500).json({ message: err.message });
     }

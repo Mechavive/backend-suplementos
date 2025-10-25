@@ -40,11 +40,11 @@ export class UserService implements UserCrud {
   }
 } */
 
-  // src/services/user.service.ts
-import { User } from "../models/entity/user.entity.js";
-import { UserInput } from "../dtos/user.dto.js";
-import mockUser from "../models/implementations/mock/mockUser.js"; // Repositorio en memoria
-import bcrypt from "bcrypt";
+// src/services/user.service.ts
+import { User } from '../models/entity/user.entity.js';
+import { UserInput } from '../dtos/user.dto.js';
+import mockUser from '../models/implementations/mock/mockUser.js'; // Repositorio en memoria
+import bcrypt from 'bcrypt';
 
 export class UserService {
   private userRepo = mockUser;
@@ -69,12 +69,10 @@ export class UserService {
    * - Hashea la contraseña
    */
   async create(data: UserInput): Promise<User> {
-    const existing = (await this.userRepo.getAll()).find(
-      (u) => u.email === data.email
-    );
+    const existing = (await this.userRepo.getAll()).find((u) => u.email === data.email);
 
     if (existing) {
-      throw new Error("El email ya está registrado");
+      throw new Error('El email ya está registrado');
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -82,7 +80,7 @@ export class UserService {
     const newUser: UserInput = {
       ...data,
       password: hashedPassword,
-      role: data.role ?? "USER", // por defecto USER
+      role: data.role ?? 'USER', // por defecto USER
     };
 
     return this.userRepo.create(newUser);
