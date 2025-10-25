@@ -17,7 +17,7 @@ export class ReviewEntity {
     private _product_id: number,
     private _qualification: number,
     private _comment: string,
-    private _date: Date
+    private _date: Date,
   ) {
     this.validateQualification(_qualification);
   }
@@ -55,7 +55,7 @@ export class ReviewEntity {
 
   public set comment(value: string) {
     if (!value || value.trim().length < 3) {
-      throw new Error("El comentario debe tener al menos 3 caracteres.");
+      throw new Error('El comentario debe tener al menos 3 caracteres.');
     }
     this._comment = value;
   }
@@ -63,7 +63,7 @@ export class ReviewEntity {
   // Validaciones internas
   private validateQualification(value: number): void {
     if (value < 1 || value > 5) {
-      throw new Error("La calificación debe ser un número entre 1 y 5.");
+      throw new Error('La calificación debe ser un número entre 1 y 5.');
     }
   }
 
