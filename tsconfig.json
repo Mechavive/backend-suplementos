@@ -10,6 +10,9 @@
     "target": "esnext",
     "types": ["jest"],
 
+    // para usar "jsonwebtoken": "^9.0.2",
+    "esModuleInterop": true,
+
     // Other Outputs
     "sourceMap": false,
     "declaration": false,
