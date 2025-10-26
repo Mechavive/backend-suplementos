@@ -1,10 +1,10 @@
 // src/routes/product.routes.ts
 
 import { Router } from 'express';
-import ProductController from '../controllers/product.controller.js';
-import { idParamSchema } from '../schemas/common.schema.js';
-import { validate } from '../middlewares/validate.middleware.js';
-import { productInputSchema, productUpdateSchema } from '../schemas/product.schema.js';
+import ProductController from '../controllers/product.controller';
+import { idParamSchema } from '../schemas/common.schema';
+import { validate } from '../middlewares/validate.middleware';
+import { productInputSchema, productUpdateSchema } from '../schemas/product.schema';
 
 const router = Router();
 // GET /api/products

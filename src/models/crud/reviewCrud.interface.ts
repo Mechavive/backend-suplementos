@@ -1,7 +1,7 @@
 // models/crud/reviewCrud.interface.ts
 
-import { Review } from '../entity/review.entity.js';
-import { ReviewInput } from '../../dtos/review.dto.js';
+import { Review } from '../entity/review.entity';
+import { ReviewInput } from '../../dtos/review.dto';
 
 export interface ReviewCrud {
   getAll(): Promise<Review[]>;

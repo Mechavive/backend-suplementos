@@ -1,14 +1,10 @@
 // src/routes/review.routes.ts
 
 import { Router } from 'express';
-import ReviewController from '../controllers/review.controller.js';
-import { validate } from '../middlewares/validate.middleware.js'; // middleware general con zod
-import {
-  idParamSchema,
-  userIdParamSchema,
-  paginationQuerySchema,
-} from '../schemas/common.schema.js';
-import { reviewSchema } from '../schemas/review.schema.js'; // esquema zod para crear review
+import ReviewController from '../controllers/review.controller';
+import { validate } from '../middlewares/validate.middleware'; // middleware general con zod
+import { idParamSchema, userIdParamSchema, paginationQuerySchema } from '../schemas/common.schema';
+import { reviewSchema } from '../schemas/review.schema'; // esquema zod para crear review
 
 const router = Router();
 

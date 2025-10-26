@@ -6,7 +6,7 @@ export const productInputSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
   price: z.number().min(0, 'El precio debe ser mayor o igual a 0'),
   // TODO: mas adelante usaremos un servidor con url y validaremos eso, por ahora lo comentamos
-  //image: z.string().min(1, "La imagen es obligatoria"), // podrías validar url si es url real
+  image: z.string().min(1, 'La imagen es obligatoria'), // podrías validar url si es url real
   category_id: z.number().int().positive('El category_id debe ser un número positivo'),
   stock: z.number().int().min(0, 'El stock debe ser entero y >= 0'),
   rating: z.number().min(0).max(5), // rating promedio, se puede validar entre 0 y 5
