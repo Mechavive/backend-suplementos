@@ -9,8 +9,8 @@ export interface Review {
   date: Date;
 } */
 
-// // models/entity/review.entity.ts
-export class ReviewEntity {
+// models/entity/review.entity.ts
+export class Review {
   constructor(
     private _review_id: number,
     private _user_id: number,
