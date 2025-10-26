@@ -1,7 +1,7 @@
 // src/controllers/review.controller.ts
 
 import { Request, Response } from 'express';
-import ReviewService from '../services/review.service.js';
+import ReviewService from '../services/review.service';
 
 class ReviewController {
   async getAll(req: Request, res: Response) {

@@ -1,8 +1,8 @@
 // src/services/review.service.ts
 
-import reviewService from '../../services/review.service.js';
-import { ReviewInput } from '../../dtos/review.dto.js';
-import { Review } from '../../models/entity/review.entity.js';
+import reviewService from '../../services/review.service';
+import { ReviewInput } from '../../dtos/review.dto';
+import { Review } from '../../models/entity/review.entity';
 
 describe('Review Service - Unit Tests', () => {
   let createdReview: Review;

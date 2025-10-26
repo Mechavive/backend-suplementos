@@ -1,7 +1,7 @@
 // src/services/user.service.ts
-import { User } from '../models/entity/user.entity.js';
-import { UserInput } from '../dtos/user.dto.js';
-import mockUser from '../models/implementations/mock/mockUser.js'; // Repositorio en memoria
+import { User } from '../models/entity/user.entity';
+import { UserInput } from '../dtos/user.dto';
+import mockUser from '../models/implementations/mock/mockUser'; // Repositorio en memoria
 import bcrypt from 'bcrypt';
 
 export class UserService {

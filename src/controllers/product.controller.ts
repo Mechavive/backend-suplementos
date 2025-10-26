@@ -1,7 +1,7 @@
 // src/controllers/product.controller.ts
 
 import { Request, Response } from 'express';
-import ProductService from '../services/product.service.js';
+import ProductService from '../services/product.service';
 
 class ProductController {
   async getAll(req: Request, res: Response) {

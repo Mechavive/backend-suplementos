@@ -1,39 +1,37 @@
-// src/models/implementations/mockProduct/mockProduct.ts
-
-import { Product } from '../../entity/product.entity.js';
-import { ProductCrud } from '../../crud/productCrud.interface.js';
-
-export type ProductUpdate = Partial<Omit<Product, 'product_id'>>;
+// models/implementations/mock/mockProduct.ts
+import { Product } from '../../entity/product.entity';
+import { ProductCrud } from '../../crud/productCrud.interface';
+import { ProductUpdate, ProductInput } from '../../../dtos/product.dto';
 
 export class MockProduct implements ProductCrud {
   private products: Product[] = [];
   private idCounter = 1;
 
   constructor() {
-    // Datos iniciales simulados
+    // Datos iniciales simulados como instancias de Product
     this.products = [
-      {
-        product_id: this.idCounter++,
-        name: 'Proteína Whey',
-        price: 15000,
-        image: 'whey.jpg',
-        category_id: 1,
-        stock: 10,
-        rating: 4.5,
-        brand: 'Optimum',
-        description: 'Proteína en polvo para aumentar masa muscular.',
-      },
-      {
-        product_id: this.idCounter++,
-        name: 'Creatina',
-        price: 8000,
-        image: 'creatina.jpg',
-        category_id: 1,
-        stock: 20,
-        rating: 4.8,
-        brand: 'MyProtein',
-        description: 'Creatina monohidratada pura.',
-      },
+      new Product(
+        this.idCounter++, // product_id
+        'Proteína Whey', // name
+        15000, // price
+        'whey.jpg', // image
+        1, // category_id
+        10, // stock
+        4.5, // rating
+        'Optimum', // brand
+        'Proteína en polvo para aumentar masa muscular.', // description
+      ),
+      new Product(
+        this.idCounter++,
+        'Creatina',
+        8000,
+        'creatina.jpg',
+        1,
+        20,
+        4.8,
+        'MyProtein',
+        'Creatina monohidratada pura.',
+      ),
     ];
   }
 
@@ -45,29 +43,28 @@ export class MockProduct implements ProductCrud {
     return this.products.find((p) => p.product_id === id);
   }
 
-  async create(product: Omit<Product, 'product_id'>): Promise<Product> {
-    const newProduct: Product = {
-      ...product,
-      product_id: this.idCounter++,
-    };
+  async create(data: ProductInput): Promise<Product> {
+    const newProduct = new Product(
+      this.idCounter++,
+      data.name,
+      data.price,
+      data.image,
+      data.category_id,
+      data.stock,
+      data.rating,
+      data.brand,
+      data.description,
+    );
     this.products.push(newProduct);
     return newProduct;
   }
 
   async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
-    const index = this.products.findIndex((p) => p.product_id === id);
-    if (index === -1) return undefined;
+    const product = this.products.find((p) => p.product_id === id);
+    if (!product) return undefined;
 
-    const existing = this.products[index]!; // le digo a ts que no es undefined con !
-
-    const updated = {
-      ...existing, // clono el producto original
-      ...data, // sobreescribo campos que se incluyeron en el update
-      product_id: existing.product_id, // protección contra intentos de actualizar el ID (que debería ser inmutable
-    } as Product; // le dice a TypeScript que es un Product completo y válido
-
-    this.products[index] = updated;
-    return updated;
+    product.updateFromPartial(data); // método dentro de la entidad
+    return product;
   }
 
   async delete(id: number): Promise<boolean> {
@@ -76,7 +73,6 @@ export class MockProduct implements ProductCrud {
     return this.products.length < originalLength;
   }
 
-  // Método útil para tests
   clear(): void {
     this.products = [];
     this.idCounter = 1;

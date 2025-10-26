@@ -85,9 +85,9 @@ export class MockUser implements UserCrud {
 export default new MockUser(); */
 
 // models/implementations/mock/mockUser.ts
-import { User, UserRole } from '../../entity/user.entity.js';
-import { UserCrud } from '../../crud/userCrud.interface.js';
-import { UserInput } from '../../../dtos/user.dto.js';
+import { User, UserRole } from '../../entity/user.entity';
+import { UserCrud } from '../../crud/userCrud.interface';
+import { UserInput } from '../../../dtos/user.dto';
 
 export class MockUser implements UserCrud {
   private users: User[] = [];

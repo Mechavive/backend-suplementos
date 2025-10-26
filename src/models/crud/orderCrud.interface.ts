@@ -1,7 +1,7 @@
 // src/models/crud/orderCrud.interface.ts
 
-import { Order, OrderStatus } from '../entity/order.entity.js';
-import { OrderInput } from '../../dtos/order.dto.js';
+import { Order, OrderStatus } from '../entity/order.entity';
+import { OrderInput } from '../../dtos/order.dto';
 
 export interface OrderCrud {
   getAll(): Promise<Order[]>;
