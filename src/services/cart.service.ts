@@ -1,6 +1,5 @@
-import MockCartModel from '../models/implementations/mock/mockCart.js';
-import { Cart } from './../models/entity/cart.entity.js';
-import { CartCrud } from './../models/crud/cartCrud.interface.js';
+import MockCartModel from '../models/implementations/mock/mockCart';
+import { Cart } from './../models/entity/cart.entity';
 
 class CartService {
   async getAll(): Promise<Cart[]> {

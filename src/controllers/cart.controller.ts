@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import CartService from '../services/cart.service.js';
+import CartService from '../services/cart.service';
 
 class CartController {
   async getAll(req: Request, res: Response) {

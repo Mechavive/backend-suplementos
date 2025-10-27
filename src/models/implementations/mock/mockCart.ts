@@ -1,5 +1,5 @@
 import { Cart } from './../../entity/cart.entity';
-import { CartCrud } from './../../crud/cartCrud.interface.js';
+import { CartCrud } from './../../crud/cartCrud.interface';
 
 export class MockCart implements CartCrud {
   private carts: Cart[] = [];
