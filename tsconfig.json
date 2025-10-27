@@ -6,9 +6,12 @@
     "outDir": "./dist",
 
     // Environment Settings
-    "module": "nodenext",
-    "target": "esnext",
-    "types": ["jest"],
+    "module": "CommonJS",          // <- importante para Jest
+    "target": "ES2020",
+    "types": ["jest", "node"],
+
+    // para usar "jsonwebtoken": "^9.0.2",
+    "esModuleInterop": true,
 
     // Other Outputs
     "sourceMap": false,

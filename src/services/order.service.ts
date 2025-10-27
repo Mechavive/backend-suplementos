@@ -1,11 +1,16 @@
 // src/services/order.service.ts
 
-import { Order } from '../models/entity/order.entity.js';
-import { OrderInput } from '../dtos/order.dto.js';
-import { OrderStatus } from '../models/entity/order.entity.js';
+import { Order } from '../models/entity/order.entity';
+import { OrderInput } from '../dtos/order.dto';
+import { OrderStatus } from '../models/entity/order.entity';
+
+// para metodos de stock
+import ProductService from './product.service';
+// para validar que un usuario existe para hacer una orden
+import UserService from './user.service';
 
 // Reemplazar esto luego con la implementación real de PostgreSQL
-import OrderModel from '../models/implementations/mock/mockOrder.js';
+import OrderModel from '../models/implementations/mock/mockOrder';
 
 class OrderService {
   async getAll(): Promise<Order[]> {
@@ -21,7 +26,18 @@ class OrderService {
   }
 
   async create(data: OrderInput): Promise<Order> {
-    return OrderModel.create(data);
+    // 1. Validar que el usuario exista
+    const user = await UserService.getById(data.user_id);
+    if (!user) throw new Error('Usuario no existe');
+
+    // TODO: 2. Validar stock (ver como cambia con order detail mas adelante)
+    for (const item of data.items) {
+      await ProductService.decreaseStock(item.productId, item.quantity);
+    }
+
+    // 3. Crear la orden
+    const order = await OrderModel.create(data);
+    return order;
   }
 
   async delete(id: number): Promise<boolean> {

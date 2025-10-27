@@ -1,4 +1,4 @@
-import { User } from '../entity/user.entity.js';
+import { User } from '../entity/user.entity';
 
 export interface UserCrud {
   create(user: Omit<User, 'user_id'>): Promise<User>;

@@ -2,6 +2,16 @@
 
 ---
 
+### Comandos
+### test individuales ejemplo:
+```
+npx jest tests/unit/order.service.test.ts
+```
+
+### test integracion ejemplo:
+```
+npx jest tests/integration/product.integration.test.ts
+```
 ## 📘 Entidades y Relaciones
 
 ### 🔹 **User**

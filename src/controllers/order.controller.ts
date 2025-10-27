@@ -1,8 +1,8 @@
 // src/controllers/order.controller.ts
 
 import { Request, Response } from 'express';
-import OrderService from '../services/order.service.js';
-import { OrderStatus } from '../models/entity/order.entity.js';
+import OrderService from '../services/order.service';
+import { OrderStatus } from '../models/entity/order.entity';
 
 class OrderController {
   async getAll(req: Request, res: Response) {

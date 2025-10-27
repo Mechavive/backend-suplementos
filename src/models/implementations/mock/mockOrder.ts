@@ -1,37 +1,25 @@
 // src/models/implementations/mock/mockOrder.ts
 
-import { Order, OrderStatus } from '../../entity/order.entity.js';
-import { OrderInput } from '../../../dtos/order.dto.js';
-import { OrderCrud } from '../../crud/orderCrud.interface.js';
+import { Order, OrderStatus } from '../../entity/order.entity';
+import { OrderInput } from '../../../dtos/order.dto';
+import { OrderCrud } from '../../crud/orderCrud.interface';
 
 export class MockOrder implements OrderCrud {
   private orders: Order[] = [];
   private idCounter = 1;
 
   constructor() {
-    // Datos iniciales simulados
+    // Datos iniciales simulados como instancias de Order
     this.orders = [
-      {
-        order_id: this.idCounter++,
-        user_id: 1,
-        status: 'pending',
-        total: 100.0,
-        order_date: new Date('2023-10-01T10:00:00Z'),
-      },
-      {
-        order_id: this.idCounter++,
-        user_id: 2,
-        status: 'paid',
-        total: 250.0,
-        order_date: new Date('2023-10-02T11:30:00Z'),
-      },
-      {
-        order_id: this.idCounter++,
-        user_id: 1,
-        status: 'cancel',
-        total: 80.5,
-        order_date: new Date('2023-10-03T09:45:00Z'),
-      },
+      new Order(
+        this.idCounter++, // order_id
+        1, // user_id
+        'pending', // status
+        100.0, // total
+        new Date('2023-10-01T10:00:00Z'), // order_date
+      ),
+      new Order(this.idCounter++, 2, 'paid', 250.0, new Date('2023-10-02T11:30:00Z')),
+      new Order(this.idCounter++, 1, 'cancel', 80.5, new Date('2023-10-03T09:45:00Z')),
     ];
   }
 
@@ -48,12 +36,14 @@ export class MockOrder implements OrderCrud {
   }
 
   async create(data: OrderInput): Promise<Order> {
-    const newOrder: Order = {
-      ...data,
-      order_id: this.idCounter++,
-      order_date: new Date(), // se asigna automáticamente
-      status: 'pending', // siempre pendiente al crear (incluso si pongo status: "cancel" en postman seguiria siendo pending)
-    };
+    // status siempre comienza en "pending", sin importar el input
+    const newOrder = new Order(
+      this.idCounter++, // order_id
+      data.user_id, // user_id
+      'pending', // status
+      data.total, // total
+      new Date(), // order_date (actual)
+    );
 
     this.orders.push(newOrder);
     return newOrder;
@@ -69,11 +59,10 @@ export class MockOrder implements OrderCrud {
     const order = await this.getById(id);
     if (!order) return undefined;
 
-    order.status = status;
+    order.status = status; // usa setter de la entity
     return order;
   }
 
-  // Método útil para tests
   clear(): void {
     this.orders = [];
     this.idCounter = 1;

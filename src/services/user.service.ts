@@ -1,49 +1,7 @@
-/* import { User, UserRole } from "../models/interface/user.js";
-import { UserCrud } from "../models/crud/userCrud.interface.js";
-import { MockUser } from "../models/implementations/mock/mockUser.js";
-
-export class UserService implements UserCrud {
-  private users: User[] = [...MockUser];
-  private nextId = this.users.length + 1;
-
-  create(userData: Omit<User, "user_id">): User {
-    const role = userData.role || UserRole.USER;
-    const newUser: User = {
-      ...userData,
-      user_id: this.nextId++,
-      role,
-    };
-    this.users.push(newUser);
-    return newUser;
-  }
-
-  getAll(): User[] {
-    return this.users;
-  }
-
-  getById(id: number): User | undefined {
-    return this.users.find(u => u.user_id === id);
-  }
-
-  update(id: number, userData: Partial<User>): User | undefined {
-    const index = this.users.findIndex(u => u.user_id === id);
-    if (index === -1) return undefined;
-    this.users[index] = { ...this.users[index], ...userData };
-    return this.users[index];
-  }
-
-  delete(id: number): boolean {
-    const index = this.users.findIndex(u => u.user_id === id);
-    if (index === -1) return false;
-    this.users.splice(index, 1);
-    return true;
-  }
-} */
-
 // src/services/user.service.ts
-import { User } from '../models/entity/user.entity.js';
-import { UserInput } from '../dtos/user.dto.js';
-import mockUser from '../models/implementations/mock/mockUser.js'; // Repositorio en memoria
+import { User } from '../models/entity/user.entity';
+import { UserInput } from '../dtos/user.dto';
+import mockUser from '../models/implementations/mock/mockUser'; // Repositorio en memoria
 import bcrypt from 'bcrypt';
 
 export class UserService {

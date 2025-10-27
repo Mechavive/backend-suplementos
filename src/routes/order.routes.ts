@@ -1,14 +1,10 @@
 // src/routes/order.routes.ts
 
 import { Router } from 'express';
-import OrderController from '../controllers/order.controller.js';
-import { validate } from '../middlewares/validate.middleware.js';
-import {
-  idParamSchema,
-  userIdParamSchema,
-  paginationQuerySchema,
-} from '../schemas/common.schema.js';
-import { orderInputSchema, orderStatusSchema } from '../schemas/order.schema.js';
+import OrderController from '../controllers/order.controller';
+import { validate } from '../middlewares/validate.middleware';
+import { idParamSchema, userIdParamSchema, paginationQuerySchema } from '../schemas/common.schema';
+import { orderInputSchema, orderStatusSchema } from '../schemas/order.schema';
 
 const router = Router();
 

@@ -1,19 +1,20 @@
 // src/services/review.service.ts
 
-import reviewService from '../../services/review.service.js';
-import { ReviewInput } from '../../dtos/review.dto.js';
-import { Review } from '../../models/entity/review.entity.js';
+import reviewService from '../../services/review.service';
+import { ReviewInput } from '../../dtos/review.dto';
+import { Review } from '../../models/entity/review.entity';
 
 describe('Review Service - Unit Tests', () => {
   let createdReview: Review;
 
-  const sampleReview: ReviewInput = {
-    user_id: 3,
-    product_id: 3,
-    qualification: 3,
-    comment: 'Regular, esperaba más',
-    date: new Date('2025-10-15'),
-  };
+  const sampleReview = new Review(
+    1, // review_id
+    1, // user_id
+    2, // product_id
+    5, // qualification
+    'Excelente producto',
+    new Date(), // date
+  );
 
   beforeAll(async () => {
     createdReview = await reviewService.create(sampleReview);
