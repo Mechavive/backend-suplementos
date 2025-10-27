@@ -1,7 +1,7 @@
 // src/services/review.service.ts
 
-import { OrderDetail } from '../../models/entity/orderDetail.js';
-import orderDetailService from '../../services/orderDetail.service.js';
+import { OrderDetail } from '../../models/entity/orderDetail';
+import orderDetailService from '../../services/orderDetail.service';
 
 describe('OrderDetail Service - Unit Tests', () => {
   let createdOrderDetail: OrderDetail;

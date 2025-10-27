@@ -1,8 +1,6 @@
 // src/services/orderDetail.service.ts
-
 import MockOrderDetail from '../models/implementations/mock/mockOrderDetail.js';
 import { OrderDetail } from '../models/entity/orderDetail.js';
-import { OrderDetailInput } from '../dtos/orderDetail.dto.js';
 
 class OrderDetailService {
   async getAll(): Promise<OrderDetail[]> {
@@ -21,11 +19,11 @@ class OrderDetailService {
     return MockOrderDetail.getByOrderId(orderId);
   }
 
-  async create(data: OrderDetailInput): Promise<OrderDetail> {
+  async create(data: OrderDetail): Promise<OrderDetail> {
     return MockOrderDetail.create(data);
   }
 
-  async delete(id: number): Promise<boolean> {
+  async delete(id: number): Promise<void> {
     return MockOrderDetail.delete(id);
   }
 }

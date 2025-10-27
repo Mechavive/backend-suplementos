@@ -36,6 +36,12 @@ export class OrderDetail {
   }
 
   //Setters
+  public setOrderDetailId(id: number) {
+    if (id <= 0) {
+      throw new Error('Id cant be lower than 0');
+    }
+    this.order_detail_id = id;
+  }
 
   public setQuantity(newQuant: number) {
     if (newQuant <= 0) {
