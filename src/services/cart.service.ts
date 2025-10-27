@@ -1,5 +1,5 @@
 import MockCartModel from '../models/implementations/mock/mockCart.js';
-import { Cart } from './../models/interface/cart.js';
+import { Cart } from './../models/entity/cart.entity.js';
 import { CartCrud } from './../models/crud/cartCrud.interface.js';
 
 class CartService {
@@ -15,7 +15,7 @@ class CartService {
   async create(cart: Cart): Promise<Cart> {
     return MockCartModel.create(cart);
   }
-  async delete(id: number): Promise<boolean> {
+  async delete(id: number): Promise<void> {
     return MockCartModel.delete(id);
   }
 }

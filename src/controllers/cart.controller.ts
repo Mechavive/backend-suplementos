@@ -63,9 +63,10 @@ class CartController {
       return res.status(400).json({ error: 'ID inválido' });
     }
     try {
-      const success = await CartService.delete(id);
-      if (!success) {
-        res.status(404).json({ error: 'Carrito no encontrada' });
+      await CartService.delete(id);
+      const cart = await CartService.getById(id);
+      if (!cart) {
+        return res.status(404).json({ error: 'Carrito no encontrado' });
       }
       res.status(500).json({ message: 'Carrito eliminada correctamente' });
     } catch (err: any) {

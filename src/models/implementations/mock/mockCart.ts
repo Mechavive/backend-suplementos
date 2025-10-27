@@ -1,48 +1,65 @@
-import { Cart } from './../../interface/cart.js';
+import { Cart } from './../../entity/cart.entity';
 import { CartCrud } from './../../crud/cartCrud.interface.js';
 
 export class MockCart implements CartCrud {
   private carts: Cart[] = [];
   private idCounter = 1;
   constructor() {
-    this.carts = [
-      {
-        cart_id: this.idCounter++,
-        user_id: 1,
-      },
-      {
-        cart_id: this.idCounter++,
-        user_id: 2,
-      },
-    ];
+    this.carts = [new Cart(this.idCounter++, 1), new Cart(this.idCounter++, 2)];
   }
 
-  async getAll(): Promise<Cart[]> {
-    return this.carts;
+  getAll(): Promise<Cart[]> {
+    return new Promise<Cart[]>((resolve) => {
+      resolve(this.carts);
+    });
   }
 
-  async getById(id: number): Promise<Cart | undefined> {
-    return this.carts.find((c) => c.cart_id === id);
+  getById(id: number): Promise<Cart | undefined> {
+    return new Promise<Cart>((resolve, reject) => {
+      const result = this.carts.find((c: Cart) => {
+        return c.getCartId() === id;
+      });
+
+      if (!result) {
+        reject(new Error(`Cart with id ${id} doesnt exist`));
+      } else {
+        resolve(result);
+      }
+    });
   }
 
-  async getCartByUserId(userId: number): Promise<Cart | undefined> {
-    return this.carts.find((c) => c.user_id === userId);
+  getCartByUserId(userId: number): Promise<Cart | undefined> {
+    return new Promise<Cart>((resolve, reject) => {
+      const result = this.carts.find((c: Cart) => {
+        return c.getUserId() === userId;
+      });
+
+      if (!result) {
+        reject(new Error(`Cart with id ${userId} doesnt exist`));
+      } else {
+        resolve(result);
+      }
+    });
   }
 
-  async create(cart: Cart): Promise<Cart> {
-    const newCart: Cart = {
-      ...cart,
-      cart_id: this.idCounter++,
-    };
-
-    this.carts.push(newCart);
-    return newCart;
+  create(cart: Cart): Promise<Cart> {
+    return new Promise<Cart>((resolve) => {
+      cart.setCartId(this.idCounter);
+      this.carts.push(cart);
+      this.idCounter++;
+      resolve(cart);
+    });
   }
 
-  async delete(id: number): Promise<boolean> {
-    const initialCartLengh = this.carts.length;
-    this.carts = this.carts.filter((c) => c.cart_id !== id);
-    return this.carts.length < initialCartLengh;
+  delete(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const index = this.carts.findIndex((cart: Cart) => cart.getCartId() === id);
+      if (index == -1) {
+        reject(new Error(`Cart with id:${id} doesnt exist`));
+      } else {
+        this.carts.splice(index, 1);
+      }
+    });
   }
 }
 
