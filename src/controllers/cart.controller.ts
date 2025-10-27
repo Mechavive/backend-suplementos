@@ -74,4 +74,4 @@ class CartController {
   }
 }
 
-export default new CartController()
+export default new CartController();

@@ -1,8 +1,8 @@
 // src/services/order.service.ts
 
-import { Order } from '../models/interface/order.js';
+import { Order } from '../models/entity/order.entity.js';
 import { OrderInput } from '../dtos/order.dto.js';
-import { OrderStatus } from '../models/interface/order.js';
+import { OrderStatus } from '../models/entity/order.entity.js';
 
 // Reemplazar esto luego con la implementación real de PostgreSQL
 import OrderModel from '../models/implementations/mock/mockOrder.js';
