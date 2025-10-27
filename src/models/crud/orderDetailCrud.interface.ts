@@ -1,4 +1,4 @@
-import { OrderDetail } from '../interface/orderDetail.js';
+import { OrderDetail } from '../entity/orderDetail.js';
 
 export interface OrderDetailCrud {
   getAll(): Promise<OrderDetail[]>;

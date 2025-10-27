@@ -1,7 +1,7 @@
 // src/services/orderDetail.service.ts
 
 import MockOrderDetail from '../models/implementations/mock/mockOrderDetail.js';
-import { OrderDetail } from '../models/interface/orderDetail.js';
+import { OrderDetail } from '../models/entity/orderDetail.js';
 import { OrderDetailInput } from '../dtos/orderDetail.dto.js';
 
 class OrderDetailService {

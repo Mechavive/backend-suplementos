@@ -1,6 +1,6 @@
 // models/implementations/mock/mockReview.ts
 
-import { Review } from '../../interface/review.js';
+import { Review } from '../../entity/review.js';
 import { ReviewCrud } from '../../crud/reviewCrud.interface.js';
 import { ReviewInput } from '../../../dtos/review.dto.js';
 

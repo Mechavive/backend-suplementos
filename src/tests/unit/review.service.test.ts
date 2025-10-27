@@ -2,7 +2,7 @@
 
 import reviewService from '../../services/review.service.js';
 import { ReviewInput } from '../../dtos/review.dto.js';
-import { Review } from '../../models/interface/review.js';
+import { Review } from '../../models/entity/review.js';
 
 describe('Review Service - Unit Tests', () => {
   let createdReview: Review;

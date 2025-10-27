@@ -1,6 +1,6 @@
 // src/models/implementations/mockProduct/mockProduct.ts
 
-import { Product } from '../../interface/product.js';
+import { Product } from '../../entity/product.js';
 import { ProductCrud } from '../../crud/productCrud.interface.js';
 
 export type ProductUpdate = Partial<Omit<Product, 'product_id'>>;

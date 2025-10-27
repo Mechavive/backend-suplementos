@@ -1,6 +1,6 @@
 // src/models/implementations/mock/mockOrder.ts
 
-import { Order, OrderStatus } from '../../interface/order.js';
+import { Order, OrderStatus } from '../../entity/order.js';
 import { OrderInput } from '../../../dtos/order.dto.js';
 import { OrderCrud } from '../../crud/orderCrud.interface.js';
 

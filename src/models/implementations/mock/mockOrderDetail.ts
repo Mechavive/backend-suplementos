@@ -1,6 +1,6 @@
 import { OrderDetailInput } from '../../../dtos/orderDetail.dto.js';
 import { OrderDetailCrud } from '../../crud/orderDetailCrud.interface.js';
-import { OrderDetail } from '../../interface/orderDetail.js';
+import { OrderDetail } from '../../entity/orderDetail.js';
 
 class MockOrderDetail implements OrderDetailCrud {
   private OrderDetails: OrderDetail[] = [];
@@ -8,22 +8,8 @@ class MockOrderDetail implements OrderDetailCrud {
 
   constructor() {
     this.OrderDetails = [
-      {
-        order_detail_id: this.idCounter++,
-        order_id: 1,
-        product_id: 1,
-        quantity: 2,
-        unit_price: 15000,
-        subtotal: 30000,
-      },
-      {
-        order_detail_id: this.idCounter++,
-        order_id: 1,
-        product_id: 2,
-        quantity: 1,
-        unit_price: 8000,
-        subtotal: 8000,
-      },
+      new OrderDetail(this.idCounter++, 1, 1, 2, 15000),
+      new OrderDetail(this.idCounter++, 1, 2, 1, 8000),
     ];
   }
 

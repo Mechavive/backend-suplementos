@@ -1,6 +1,6 @@
 // src/models/crud/productCrud.interface.ts
 
-import { Product } from '../interface/product.js';
+import { Product } from '../entity/product.js';
 
 export interface ProductCrud {
   getAll(): Promise<Product[]>;
