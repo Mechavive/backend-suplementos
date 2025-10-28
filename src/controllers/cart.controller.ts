@@ -5,7 +5,7 @@ class CartController {
   async getAll(req: Request, res: Response) {
     try {
       const carts = await CartService.getAll();
-      res.json(carts);
+      res.status(200).json(carts);
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }
