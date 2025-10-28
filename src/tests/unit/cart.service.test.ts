@@ -34,10 +34,13 @@ describe('Cart Service - Unit Tests', () => {
     expect(cart?.getUserId()).toBe(sampleCart.getUserId());
   });
 
-  it('should delete a cart', async () => {
-    const carts = await cartService.getAll();
-    const deleted = await cartService.delete(createdCart.getCartId());
-    console.log(`Deleted cart with id ${createdCart.getCartId()}:`, deleted);
-    expect(carts.length).toBe(2);
+  it('should delete an order detail', async () => {
+    const id = createdCart.getCartId();
+
+    await cartService.delete(id);
+    const all = await cartService.getAll();
+
+    const found = all.find((o) => o.getCartId() === id);
+    expect(found).toBeUndefined();
   });
 });

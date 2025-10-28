@@ -15,13 +15,10 @@ export class MockCart implements CartCrud {
   }
 
   getById(id: number): Promise<Cart | undefined> {
-    return new Promise<Cart>((resolve, reject) => {
-      const result = this.carts.find((c: Cart) => {
-        return c.getCartId() === id;
-      });
-
+    return new Promise<Cart | undefined>((resolve, reject) => {
+      const result = this.carts.find((c: Cart) => c.getCartId() === id);
       if (!result) {
-        reject(new Error(`Cart with id ${id} doesnt exist`));
+        reject(new Error(`Cart with id ${id} doesn't exist`));
       } else {
         resolve(result);
       }
@@ -29,13 +26,10 @@ export class MockCart implements CartCrud {
   }
 
   getCartByUserId(userId: number): Promise<Cart | undefined> {
-    return new Promise<Cart>((resolve, reject) => {
-      const result = this.carts.find((c: Cart) => {
-        return c.getUserId() === userId;
-      });
-
+    return new Promise<Cart | undefined>((resolve, reject) => {
+      const result = this.carts.find((c: Cart) => c.getUserId() === userId);
       if (!result) {
-        reject(new Error(`Cart with id ${userId} doesnt exist`));
+        reject(new Error(`Cart with userId ${userId} doesn't exist`));
       } else {
         resolve(result);
       }
@@ -52,12 +46,13 @@ export class MockCart implements CartCrud {
   }
 
   delete(id: number): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const index = this.carts.findIndex((cart: Cart) => cart.getCartId() === id);
-      if (index == -1) {
-        reject(new Error(`Cart with id:${id} doesnt exist`));
+      if (index === -1) {
+        reject(new Error(`Cart with id:${id} doesn't exist`));
       } else {
         this.carts.splice(index, 1);
+        resolve();
       }
     });
   }
