@@ -13,7 +13,7 @@ interface LoginBody {
 }
 
 class AuthController {
-  static async login(req: Request<{}, {}, LoginBody>, res: Response) {
+  async login(req: Request<{}, {}, LoginBody>, res: Response) {
     try {
       const { email, password } = req.body;
 
@@ -56,4 +56,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+export default new AuthController();
