@@ -14,10 +14,16 @@ export class Cart {
 
   //setters
   public setCartId(newCartId: number) {
+    if (newCartId < 0) {
+      throw new Error('Id cant be lower or equal than 0');
+    }
     this.cart_id = newCartId;
   }
 
   public setUserId(newUserId: number) {
+    if (newUserId < 0) {
+      throw new Error('Id cant be lower or equal than 0');
+    }
     this.user_id = newUserId;
   }
 }

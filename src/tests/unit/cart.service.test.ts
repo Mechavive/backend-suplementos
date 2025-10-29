@@ -1,10 +1,13 @@
 import { Cart } from '../../models/entity/cart.entity';
 import cartService from '../../services/cart.service';
+import { CartInput } from '../../dtos/cart.dto';
 
 describe('Cart Service - Unit Tests', () => {
   let createdCart: Cart;
 
-  const sampleCart = new Cart(1, 1);
+  const sampleCart: CartInput = {
+    user_id: 3,
+  };
 
   beforeAll(async () => {
     createdCart = await cartService.create(sampleCart);
@@ -23,15 +26,15 @@ describe('Cart Service - Unit Tests', () => {
   });
 
   it('should get cart by cart ID', async () => {
-    const cart = await cartService.getById(sampleCart.getCartId());
-    console.log(`carts for cart_id=${sampleCart.getCartId()}:`, cart);
-    expect(cart?.getCartId()).toBe(sampleCart.getCartId());
+    const cart = await cartService.getById(3);
+    console.log(`carts for cart_id=${3}:`, cart);
+    expect(cart?.getCartId()).toBe(3);
   });
 
   it('should get cart by user ID', async () => {
-    const cart = await cartService.getCartByUserId(sampleCart.getUserId());
-    console.log(`cart for user_id=${sampleCart.getUserId()}:`, cart);
-    expect(cart?.getUserId()).toBe(sampleCart.getUserId());
+    const cart = await cartService.getCartByUserId(sampleCart.user_id);
+    console.log(`cart for user_id=${sampleCart.user_id}:`, cart);
+    expect(cart?.getUserId()).toBe(sampleCart.user_id);
   });
 
   it('should delete an order detail', async () => {

@@ -1,3 +1,4 @@
+import { CartInput } from '../dtos/cart.dto';
 import MockCartModel from '../models/implementations/mock/mockCart';
 import { Cart } from './../models/entity/cart.entity';
 
@@ -11,7 +12,7 @@ class CartService {
   async getCartByUserId(userId: number): Promise<Cart | undefined> {
     return MockCartModel.getCartByUserId(userId);
   }
-  async create(cart: Cart): Promise<Cart> {
+  async create(cart: CartInput): Promise<Cart> {
     return MockCartModel.create(cart);
   }
   async delete(id: number): Promise<void> {

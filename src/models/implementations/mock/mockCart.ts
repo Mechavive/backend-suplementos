@@ -1,5 +1,6 @@
 import { Cart } from './../../entity/cart.entity';
 import { CartCrud } from './../../crud/cartCrud.interface';
+import { CartInput } from './../../../dtos/cart.dto';
 
 export class MockCart implements CartCrud {
   private carts: Cart[] = [];
@@ -36,12 +37,11 @@ export class MockCart implements CartCrud {
     });
   }
 
-  create(cart: Cart): Promise<Cart> {
+  create(data: CartInput): Promise<Cart> {
     return new Promise<Cart>((resolve) => {
-      cart.setCartId(this.idCounter);
-      this.carts.push(cart);
-      this.idCounter++;
-      resolve(cart);
+      const newCart = new Cart(this.idCounter++, data.user_id);
+      this.carts.push(newCart);
+      resolve(newCart);
     });
   }
 
