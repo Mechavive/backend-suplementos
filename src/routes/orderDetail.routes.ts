@@ -1,0 +1,24 @@
+// src/routes/orderDetail.routes.ts
+
+import { Router } from 'express';
+import { validate } from '../middlewares/validate.middleware'; // middleware general con zod
+import { idParamSchema } from '../schemas/common.schema';
+import orderDetailController from '../controllers/orderDetail.controller';
+import { orderDetailSchema } from '../schemas/orderDetail.schema';
+
+const router = Router();
+
+// GET /api/orderDetails
+router.get('/', orderDetailController.getAll);
+// GET /api/orderDetails/:id
+router.get('/:id', validate(idParamSchema, 'params'), orderDetailController.getById);
+// GET /api/orderDetails/product/:productId
+router.get('/product/:productId', orderDetailController.getByProductId);
+// GET /api/orderDetails/order/:orderId
+router.get('/product/:productId', orderDetailController.getByOrderId);
+// POST /api/orderDetails
+router.post('/', validate(orderDetailSchema, 'body'), orderDetailController.create);
+// DELETE /api/orderDetails/:id
+router.delete('/:id', validate(idParamSchema, 'params'), orderDetailController.delete);
+
+export default router;
