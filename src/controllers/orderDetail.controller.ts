@@ -78,3 +78,5 @@ export class orderDetailController {
     }
   }
 }
+
+export default new orderDetailController();

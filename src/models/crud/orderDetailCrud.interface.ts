@@ -1,3 +1,4 @@
+import { OrderDetailInput } from '../../dtos/orderDetail.dto';
 import { OrderDetail } from '../entity/orderDetail.entity';
 
 export interface OrderDetailCrud {
@@ -5,6 +6,6 @@ export interface OrderDetailCrud {
   getById(id: number): Promise<OrderDetail>;
   getByOrderId(orderId: number): Promise<OrderDetail[]>;
   getByProductId(productId: number): Promise<OrderDetail[]>;
-  create(order: OrderDetail): Promise<OrderDetail>;
+  create(order: OrderDetailInput): Promise<OrderDetail>;
   delete(id: number): Promise<void>;
 }

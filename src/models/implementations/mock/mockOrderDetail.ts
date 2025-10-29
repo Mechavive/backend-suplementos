@@ -1,3 +1,4 @@
+import { OrderDetailInput } from '../../../dtos/orderDetail.dto';
 import { OrderDetailCrud } from '../../crud/orderDetailCrud.interface';
 import { OrderDetail } from '../../entity/orderDetail.entity';
 
@@ -56,12 +57,17 @@ class MockOrderDetail implements OrderDetailCrud {
       }
     });
   }
-  create(orderDetail: OrderDetail): Promise<OrderDetail> {
+  create(data: OrderDetailInput): Promise<OrderDetail> {
     return new Promise<OrderDetail>((resolve) => {
-      orderDetail.setOrderDetailId(this.idCounter);
-      this.OrderDetails.push(orderDetail);
-      this.idCounter++;
-      resolve(orderDetail);
+      const newOrderDetail = new OrderDetail(
+        this.idCounter++,
+        data.order_id,
+        data.product_id,
+        data.quantity,
+        data.unit_price,
+      );
+      this.OrderDetails.push(newOrderDetail);
+      resolve(newOrderDetail);
     });
   }
   delete(orderDetailId: number): Promise<void> {
