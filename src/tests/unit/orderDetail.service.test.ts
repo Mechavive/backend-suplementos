@@ -20,27 +20,27 @@ describe('OrderDetail Service - Unit Tests', () => {
 
   // para que me de info en consola
   it('should create a new order detail', async () => {
-    console.log('Created OrderDetail:', createdOrderDetail);
+    //console.log('Created OrderDetail:', createdOrderDetail);
     expect(createdOrderDetail).toHaveProperty('order_detail_id');
     expect(createdOrderDetail.getQuantity()).toBe(sampleOrderDetail.quantity);
   });
 
   it('should return all order details', async () => {
     const all = await orderDetailService.getAll();
-    console.log('All orderDetails:', all);
+    //console.log('All orderDetails:', all);
     expect(all.length).toBeGreaterThan(0);
   });
 
   it('should get order details by order ID', async () => {
     const ordersdetail = await orderDetailService.getByOrderId(sampleOrderDetail.order_id);
-    console.log(`order details for order_id=${sampleOrderDetail.order_id}:`, ordersdetail);
+    //console.log(`order details for order_id=${sampleOrderDetail.order_id}:`, ordersdetail);
     expect(ordersdetail.length).toBeGreaterThan(0);
     expect(ordersdetail[0]!.getOrderId()).toBe(sampleOrderDetail.order_id);
   });
 
   it('should get order details by product ID', async () => {
     const ordersdetail = await orderDetailService.getByProductId(sampleOrderDetail.product_id);
-    console.log(`order details for product_ID=${sampleOrderDetail.product_id}:`, ordersdetail);
+    //console.log(`order details for product_ID=${sampleOrderDetail.product_id}:`, ordersdetail);
     expect(ordersdetail.length).toBeGreaterThan(0);
     expect(ordersdetail[0]!.getProductId()).toBe(sampleOrderDetail.product_id);
   });

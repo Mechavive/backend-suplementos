@@ -138,7 +138,7 @@ npx jest tests/integration/product.integration.test.ts
 ---
 
 ## 🧩 UML
-![Diagrama UML](./images/UML%20TP%20Integrador.jpg)
+![Diagrama UML](./images/UML-TP-Integrador.jpg)
 
 
 ---
