@@ -17,10 +17,9 @@ export class UserService {
     return this.userRepo.getById(id);
   }
 
-  
-    // Crea un nuevo usuario
-    // - Si no se especifica rol, se asigna "USER"
-    // - Hashea la contraseña
+  // Crea un nuevo usuario
+  // - Si no se especifica rol, se asigna "USER"
+  // - Hashea la contraseña
   async create(data: UserInput): Promise<User> {
     const existing = (await this.userRepo.getAll()).find((u) => u.email === data.email);
 
@@ -33,12 +32,11 @@ export class UserService {
     const newUser: UserInput = {
       ...data,
       password: hashedPassword,
-      role: data.role ?? UserRole.USER, 
+      role: data.role ?? UserRole.USER,
     };
 
     return this.userRepo.create(newUser);
   }
-
 
   // Actualiza un usuario
   async update(id: number, data: Partial<User>): Promise<User | undefined> {
@@ -50,7 +48,6 @@ export class UserService {
     return this.userRepo.update(id, data);
   }
 
- 
   //Elimina un usuario
   async delete(id: number): Promise<boolean> {
     return this.userRepo.delete(id);

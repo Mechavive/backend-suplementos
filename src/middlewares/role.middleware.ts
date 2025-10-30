@@ -3,7 +3,6 @@ import { Response, NextFunction } from 'express';
 import { AuthRequest } from './auth.middleware.js';
 import { UserRole } from '../models/entity/user.entity';
 
-
 // Middleware para autorizar según rol
 export const authorizeRole = (...roles: UserRole[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {

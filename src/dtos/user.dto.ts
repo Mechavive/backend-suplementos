@@ -12,4 +12,3 @@ export type UserInput = {
 
 // DTO para updates parciales
 export type UserUpdate = Partial<Omit<UserInput, 'role'>> & { role?: UserRole };
-
