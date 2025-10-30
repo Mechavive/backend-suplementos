@@ -1,13 +1,13 @@
 // src/app.ts
 
 import express from 'express';
-import productRoutes from './routes/product.routes.js';
-import reviewsRoutes from './routes/review.routes.js';
-import orderRoutes from './routes/order.routes.js';
-import userRoutes from './routes/user.routes.js';
-import authRoutes from './routes/auth.routes.js';
-import cartRoutes from './routes/cart.routes.js';
-import orderDetailRoutes from './routes/orderDetail.routes.js';
+import productRoutes from './routes/product.routes';
+import reviewsRoutes from './routes/review.routes';
+import orderRoutes from './routes/order.routes';
+import userRoutes from './routes/user.routes';
+import authRoutes from './routes/auth.routes';
+import cartRoutes from './routes/cart.routes';
+import orderDetailRoutes from './routes/orderDetail.routes';
 
 const app = express();
 app.use(express.json());
