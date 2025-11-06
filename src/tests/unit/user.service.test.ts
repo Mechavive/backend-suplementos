@@ -10,30 +10,29 @@ describe('UserService - Unit Tests', () => {
   });
 
   it('should create a new user with hashed password', async () => {
-  const newUser = await userService.create({
-    name: 'Test User',
-    email: 'test@example.com',
-    password: 'Password123',
-    address: 'Test Street 1',
+    const newUser = await userService.create({
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'Password123',
+      address: 'Test Street 1',
+    });
+
+    expect(newUser.user_id).toBeDefined();
+    expect(newUser.name).toBe('Test User');
+
+    const isMatch = await bcrypt.compare('Password123', newUser.password);
+    expect(isMatch).toBe(true);
+
+    // validar todo el objeto plano
+    expect(newUser.toJSON()).toEqual({
+      user_id: expect.any(Number),
+      name: 'Test User',
+      email: 'test@example.com',
+      password: expect.any(String),
+      address: 'Test Street 1',
+      role: 'USER',
+    });
   });
-
-  expect(newUser.user_id).toBeDefined();
-  expect(newUser.name).toBe('Test User');
-
-  const isMatch = await bcrypt.compare('Password123', newUser.password);
-  expect(isMatch).toBe(true);
-
-  // validar todo el objeto plano
-  expect(newUser.toJSON()).toEqual({
-    user_id: expect.any(Number),
-    name: 'Test User',
-    email: 'test@example.com',
-    password: expect.any(String),
-    address: 'Test Street 1',
-    role: 'USER',
-  });
-});
-
 
   it('should not allow duplicate emails', async () => {
     await userService.create({

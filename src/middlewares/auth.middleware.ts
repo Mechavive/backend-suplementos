@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { UserRole } from '../models/entity/user.entity';
 
-type JwtPayloadCustom ={
+type JwtPayloadCustom = {
   user_id: number;
   role: 'ADMIN' | 'USER' | UserRole;
-}
+};
 
 export interface AuthRequest extends Request {
   user?: {
@@ -38,8 +38,7 @@ export const authenticateJWT = (req: AuthRequest, res: Response, next: NextFunct
     }
 
     // Normalizamos el rol para asegurar que sea siempre un string "ADMIN" o "USER"
-    const normalizedRole =
-      decoded.role?.toString().toUpperCase() === 'ADMIN' ? 'ADMIN' : 'USER';
+    const normalizedRole = decoded.role?.toString().toUpperCase() === 'ADMIN' ? 'ADMIN' : 'USER';
 
     // Asignamos la info del usuario al request
     req.user = {

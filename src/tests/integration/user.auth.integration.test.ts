@@ -28,10 +28,7 @@ describe('User + Auth Integration', () => {
       address: '123 Test St',
     };
 
-    const createRes = await request(app)
-      .post('/api/users')
-      .send(newUser)
-      .expect(201);
+    const createRes = await request(app).post('/api/users').send(newUser).expect(201);
 
     expect(createRes.body).toHaveProperty('user_id');
     expect(createRes.body.email).toBe(newUser.email);
@@ -46,7 +43,10 @@ describe('User + Auth Integration', () => {
     expect(loginRes.body.user.email).toBe(newUser.email);
 
     //  Verificar JWT
-    const decoded: any = jwt.verify(loginRes.body.token, process.env.JWT_SECRET ?? 'super_secret_key');
+    const decoded: any = jwt.verify(
+      loginRes.body.token,
+      process.env.JWT_SECRET ?? 'super_secret_key',
+    );
     expect(decoded).toHaveProperty('user_id', createRes.body.user_id);
     expect(decoded).toHaveProperty('role');
   });
