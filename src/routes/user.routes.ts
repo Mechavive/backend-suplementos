@@ -60,7 +60,7 @@ router.get(
   authenticateJWT,
   validate(idParamSchema, 'params'),
   authorizeSelfOrAdmin,
-  UserController.getById
+  UserController.getById,
 );
 
 // POST /api/users — registrar un nuevo usuario (público)
