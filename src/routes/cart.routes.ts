@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import CartController from '../controllers/cart.controller.js';
+import CartController from '../controllers/cart.controller';
 import { validate } from '../middlewares/validate.middleware'; // middleware general con zod
 import { idParamSchema } from '../schemas/common.schema';
-import { cartSchema } from '../schemas/cart.schema.js'; // esquema zod para crear review
+import { cartSchema } from '../schemas/cart.schema'; // esquema zod para crear review
 
 const router = Router();
 

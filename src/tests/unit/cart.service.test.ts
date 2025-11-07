@@ -14,26 +14,26 @@ describe('Cart Service - Unit Tests', () => {
   });
 
   it('should create a new cart', async () => {
-    console.log('Created Cart:', createdCart);
+    //console.log('Created Cart:', createdCart);
     expect(createdCart).toHaveProperty('cart_id');
     expect(createdCart).toHaveProperty('user_id');
   });
 
   it('should return all carts', async () => {
     const all = await cartService.getAll();
-    console.log('All carts:', all);
+    //console.log('All carts:', all);
     expect(all.length).toBeGreaterThan(0);
   });
 
   it('should get cart by cart ID', async () => {
     const cart = await cartService.getById(3);
-    console.log(`carts for cart_id=${3}:`, cart);
+    //console.log(`carts for cart_id=${3}:`, cart);
     expect(cart?.getCartId()).toBe(3);
   });
 
   it('should get cart by user ID', async () => {
     const cart = await cartService.getCartByUserId(sampleCart.user_id);
-    console.log(`cart for user_id=${sampleCart.user_id}:`, cart);
+    //console.log(`cart for user_id=${sampleCart.user_id}:`, cart);
     expect(cart?.getUserId()).toBe(sampleCart.user_id);
   });
 

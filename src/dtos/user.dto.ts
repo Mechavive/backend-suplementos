@@ -1,4 +1,14 @@
 // src/dtos/user.dto.ts
-import { User } from '../models/entity/user.entity';
+import { UserRole } from '../models/entity/user.entity';
 
-export type UserInput = Omit<User, 'user_id'>;
+// DTO para creación de usuario
+export type UserInput = {
+  name: string;
+  email: string;
+  password: string;
+  address: string;
+  role?: UserRole; // opcional, por defecto USER
+};
+
+// DTO para updates parciales
+export type UserUpdate = Partial<Omit<UserInput, 'role'>> & { role?: UserRole };

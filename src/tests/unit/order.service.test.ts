@@ -1,4 +1,4 @@
-// tests/unit/order.service.spec.ts
+// tests/unit/order.service.test.ts
 
 import OrderService from '../../services/order.service';
 import OrderModel from '../../models/implementations/mock/mockOrder';
