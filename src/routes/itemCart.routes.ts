@@ -4,7 +4,7 @@ import { validate } from '../middlewares/validate.middleware'; // middleware gen
 import { idParamSchema } from '../schemas/common.schema';
 import { itemCartSchema } from '../schemas/itemCart.schema'; // esquema zod para crear review
 
-const router = Router()
+const router = Router();
 
 // GET /api/itemCarts
 router.get('/', itemCartController.getAll);
