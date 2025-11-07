@@ -14,7 +14,6 @@ router.get('/:id', validate(idParamSchema, 'params'), CartController.getById);
 router.get('/user/:userId', CartController.getCartByUserId);
 // POST /api/carts
 router.post('/', validate(cartSchema, 'body'), CartController.create);
-// TODO: Abria que poner un PATCH? No creo que sea necesario
 // DELETE /api/carts/:id
 router.delete('/:id', validate(idParamSchema, 'params'), CartController.delete);
 
