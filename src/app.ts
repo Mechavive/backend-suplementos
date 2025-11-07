@@ -8,10 +8,12 @@ import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import cartRoutes from './routes/cart.routes';
 import orderDetailRoutes from './routes/orderDetail.routes';
+import itemCartRoutes from './routes/itemCart.routes';
 
 const app = express();
 app.use(express.json());
 
+app.use('/api/itemCarts', itemCartRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/reviews', reviewsRoutes);
