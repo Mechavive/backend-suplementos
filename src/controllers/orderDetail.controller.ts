@@ -72,7 +72,7 @@ export class orderDetailController {
       if (!orderdetail) {
         return res.status(404).json({ error: 'OrderDetail no encontrado' });
       }
-      res.status(500).json({ message: 'OrderDetail eliminado correctamente' });
+      res.status(200).json({ message: 'OrderDetail eliminado correctamente' });
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }

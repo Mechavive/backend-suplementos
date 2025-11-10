@@ -19,3 +19,5 @@ export class CategoryService {
     return MockCategory.delete(id);
   }
 }
+
+export default new CategoryService();
