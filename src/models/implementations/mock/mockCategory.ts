@@ -56,3 +56,5 @@ export class MockCategory implements CategoryCrud {
     });
   }
 }
+
+export default new MockCategory();
