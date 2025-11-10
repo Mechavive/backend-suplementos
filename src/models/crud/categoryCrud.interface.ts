@@ -4,7 +4,6 @@ import { Category } from '../entity/category.entity';
 export interface CategoryCrud {
   getAll(): Promise<Category[]>;
   getById(id: number): Promise<Category | undefined>;
-  getCartByUserId(userId: number): Promise<Category | undefined>;
-  create(cart: CategoryInput): Promise<Category>;
+  create(data: CategoryInput): Promise<Category>;
   delete(id: number): Promise<void>;
 }
