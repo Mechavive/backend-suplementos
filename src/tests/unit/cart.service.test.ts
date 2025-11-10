@@ -37,7 +37,7 @@ describe('Cart Service - Unit Tests', () => {
     expect(cart?.getUserId()).toBe(sampleCart.user_id);
   });
 
-  it('should delete an order detail', async () => {
+  it('should delete a cart', async () => {
     const id = createdCart.getCartId();
 
     await cartService.delete(id);
