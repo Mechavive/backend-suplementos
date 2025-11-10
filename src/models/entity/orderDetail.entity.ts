@@ -48,6 +48,7 @@ export class OrderDetail {
       throw new Error('Quantity can not be 0');
     }
     this.quantity = newQuant;
+    this.subtotal = this.quantity * this.unit_price; // recalcular el subtotal
   }
 
   public setUnitPrice(newUnitPrice: number) {
@@ -55,5 +56,25 @@ export class OrderDetail {
       throw new Error('Price can not be negative');
     }
     this.unit_price = newUnitPrice;
+    this.subtotal = this.quantity * this.unit_price; // recalcular el subtotal
+  }
+
+  // para el checkout service
+  public setOrderId(orderId: number) {
+    if (orderId <= 0) {
+      throw new Error('Order ID must be greater than 0');
+    }
+    this.order_id = orderId;
+  }
+
+  public toJSON() {
+    return {
+      order_detail_id: this.order_detail_id,
+      order_id: this.order_id,
+      product_id: this.product_id,
+      quantity: this.quantity,
+      unit_price: this.unit_price,
+      subtotal: this.subtotal,
+    };
   }
 }

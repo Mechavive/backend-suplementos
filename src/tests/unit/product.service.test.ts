@@ -19,7 +19,7 @@ describe('ProductService - Reglas de negocio', () => {
       description: 'Suplemento de resistencia',
     };
 
-    const created = await productService.createProduct(input);
+    const created = await productService.create(input);
 
     expect(created).toBeInstanceOf(Product);
     expect(created.name).toBe('Beta Alanina');
@@ -27,7 +27,7 @@ describe('ProductService - Reglas de negocio', () => {
   });
 
   it('no permite disminuir stock si es insuficiente', async () => {
-    const product = await productService.createProduct({
+    const product = await productService.create({
       name: 'Whey',
       price: 100,
       image: 'whey.jpg',
@@ -44,7 +44,7 @@ describe('ProductService - Reglas de negocio', () => {
   });
 
   it('disminuye el stock correctamente', async () => {
-    const product = await productService.createProduct({
+    const product = await productService.create({
       name: 'Creatina',
       price: 80,
       image: 'creatina.jpg',
@@ -60,7 +60,7 @@ describe('ProductService - Reglas de negocio', () => {
   });
 
   it('aumenta el stock correctamente', async () => {
-    const product = await productService.createProduct({
+    const product = await productService.create({
       name: 'Glutamina',
       price: 50,
       image: 'glutamina.jpg',
@@ -76,7 +76,7 @@ describe('ProductService - Reglas de negocio', () => {
   });
 
   it('elimina un producto correctamente', async () => {
-    const product = await productService.createProduct({
+    const product = await productService.create({
       name: 'Multivitamínico',
       price: 60,
       image: 'multi.jpg',
@@ -87,10 +87,10 @@ describe('ProductService - Reglas de negocio', () => {
       description: 'Vitaminas diarias',
     });
 
-    const deleted = await productService.deleteProduct(product.product_id);
+    const deleted = await productService.delete(product.product_id);
     expect(deleted).toBe(true);
 
-    const check = await productService.getProductById(product.product_id);
+    const check = await productService.getById(product.product_id);
     expect(check).toBeUndefined();
   });
 });

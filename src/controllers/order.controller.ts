@@ -5,6 +5,7 @@ import OrderService from '../services/order.service';
 import { OrderStatus } from '../models/entity/order.entity';
 
 class OrderController {
+  // GET /api/orders
   async getAll(req: Request, res: Response) {
     try {
       const orders = await OrderService.getAll();
@@ -14,34 +15,23 @@ class OrderController {
     }
   }
 
+  // GET /api/orders/:id
   async getById(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'ID inválido' });
-    }
+    // Zod ya validó y transformó id a number
+    const id = req.params.id as unknown as number;
 
     try {
       const order = await OrderService.getById(id);
-      if (!order) {
-        return res.status(404).json({ error: 'Orden no encontrada' });
-      }
-      return res.json(order);
+      if (!order) return res.status(404).json({ error: 'Orden no encontrada' });
+      res.json(order);
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }
   }
 
+  // GET /api/orders/user/:userId
   async getByUserId(req: Request, res: Response) {
-    const userIdParam = req.params.userId;
-
-    if (!userIdParam) {
-      return res.status(400).json({ error: 'userId es requerido' });
-    }
-
-    const userId = parseInt(userIdParam);
-    if (isNaN(userId)) {
-      return res.status(400).json({ error: 'userId inválido' });
-    }
+    const userId = req.params.userId as unknown as number;
 
     try {
       const orders = await OrderService.getByUserId(userId);
@@ -51,6 +41,7 @@ class OrderController {
     }
   }
 
+  // POST /api/orders
   async create(req: Request, res: Response) {
     try {
       const newOrder = await OrderService.create(req.body);
@@ -60,42 +51,42 @@ class OrderController {
     }
   }
 
+  // DELETE /api/orders/:id
   async delete(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'ID inválido' });
-    }
+    const id = req.params.id as unknown as number;
 
     try {
       const success = await OrderService.delete(id);
-      if (!success) {
-        return res.status(404).json({ error: 'Orden no encontrada' });
-      }
-      res.status(200).json({ message: 'Orden eliminada correctamente' });
+      if (!success) return res.status(404).json({ error: 'Orden no encontrada' });
+      res.json({ message: 'Orden eliminada correctamente' });
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }
   }
 
+  // PATCH /api/orders/:id/status
   async updateStatus(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'ID inválido' });
-    }
-
-    const { status } = req.body;
-    if (!status || !['pending', 'paid', 'cancel'].includes(status)) {
-      return res.status(400).json({ error: 'Estado inválido' });
-    }
+    const id = req.params.id as unknown as number;
+    const { status } = req.body as { status: OrderStatus };
 
     try {
-      const updated = await OrderService.updateStatus(id, status as OrderStatus);
-      if (!updated) {
-        return res.status(404).json({ error: 'Orden no encontrada' });
-      }
+      const updated = await OrderService.updateStatus(id, status);
+      if (!updated) return res.status(404).json({ error: 'Orden no encontrada' });
       res.json(updated);
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error actualizando estado de la orden' });
+    }
+  }
+
+  // POST /api/orders/checkout/:userId
+  async checkout(req: Request, res: Response) {
+    const userId = req.params.userId as unknown as number;
+
+    try {
+      const order = await OrderService.checkout(userId);
+      res.status(201).json(order);
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || 'No se pudo hacer checkout' });
     }
   }
 }

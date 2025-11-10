@@ -11,3 +11,9 @@ export type OrderInput = {
   total: number;
   items: OrderItem[];
 };
+
+export type OrderCreatePayload = {
+  user_id: number;
+  total: number;
+  items: { productId: number; quantity: number }[];
+};

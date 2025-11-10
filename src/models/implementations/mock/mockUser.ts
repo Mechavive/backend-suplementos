@@ -3,6 +3,8 @@ import { User, UserRole } from '../../entity/user.entity';
 import { UserCrud } from '../../crud/userCrud.interface';
 import { UserInput } from '../../../dtos/user.dto';
 
+import CartModel from './mockCart';
+
 export class MockUser implements UserCrud {
   private users: User[] = [];
   private idCounter = 1;
@@ -47,6 +49,10 @@ export class MockUser implements UserCrud {
       data.role || UserRole.USER,
     );
     this.users.push(newUser);
+
+    // Crear automáticamente su carrito
+    await CartModel.getOrCreateCartForUser(newUser.user_id);
+
     return newUser;
   }
 
