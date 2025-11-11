@@ -12,12 +12,6 @@ export class MockCart implements CartCrud {
     this.carts = [new Cart(this.idCounter++, 1), new Cart(this.idCounter++, 2)];
   }
 
-  // modificamos para que devuelva undefined y no error
-  //Así la capa de servicio (OrderService) puede decidir qué hacer (crear uno, lanzar error, etc.).
-  // async getCartByUserId(userId: number): Promise<Cart | undefined> {
-  //   return this.carts.find(c => c.getUserId() === userId);
-  // }
-
   // Para reforzar la relación 1:1 (un carrito por usuario)
   getOrCreateCartForUser(userId: number): Promise<Cart> {
     return new Promise((resolve) => {
@@ -42,16 +36,6 @@ export class MockCart implements CartCrud {
     return MockItemCart.getByCartId(cartId);
   }
 
-  // getById(id: number): Promise<Cart | undefined> {
-  //   return new Promise<Cart | undefined>((resolve, reject) => {
-  //     const result = this.carts.find((c: Cart) => c.getCartId() === id);
-  //     if (!result) {
-  //       reject(new Error(`Cart with id ${id} doesn't exist`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
 
   getById(id: number): Promise<Cart | undefined> {
     return new Promise((resolve) => {
@@ -60,18 +44,6 @@ export class MockCart implements CartCrud {
     });
   }
 
-  // si no encuentra el carrito lanza error
-  // getCartByUserId(userId: number): Promise<Cart | undefined> {
-  //   return new Promise<Cart | undefined>((resolve, reject) => {
-  //     const result = this.carts.find((c: Cart) => c.getUserId() === userId);
-  //     if (!result) {
-  //       reject(new Error(`Cart with userId ${userId} doesn't exist`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
-
   // deuelve undefined si no encuentra el carrito (permite que el servicio decida que hacer)
   getCartByUserId(userId: number): Promise<Cart | undefined> {
     return new Promise((resolve) => {
@@ -79,14 +51,6 @@ export class MockCart implements CartCrud {
       resolve(result);
     });
   }
-
-  // create(data: CartInput): Promise<Cart> {
-  //   return new Promise<Cart>((resolve) => {
-  //     const newCart = new Cart(this.idCounter++, data.user_id);
-  //     this.carts.push(newCart);
-  //     resolve(newCart);
-  //   });
-  // }
 
   create(data: CartInput): Promise<Cart> {
     return new Promise((resolve) => {
@@ -112,12 +76,6 @@ export class MockCart implements CartCrud {
       }
     });
   }
-  // delete(id: number): Promise<void> {
-  //   return new Promise((resolve) => {
-  //     this.carts = this.carts.filter(c => c.getCartId() !== id);
-  //     resolve();
-  //   });
-  // }
 
   deleteByUserId(userId: number): Promise<void> {
     return new Promise((resolve) => {

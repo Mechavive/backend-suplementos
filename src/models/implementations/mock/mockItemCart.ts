@@ -17,16 +17,6 @@ export class MockItemCart implements ItemCartCrud {
       resolve(this.itemCarts);
     });
   }
-  // getByItemId(itemId: number): Promise<ItemCart | undefined> {
-  //   return new Promise<ItemCart | undefined>((resolve, reject) => {
-  //     const result = this.itemCarts.find((ic: ItemCart) => ic.getItemId() === itemId);
-  //     if (!result) {
-  //       reject(new Error(`ItemCart with id ${itemId} doesn't exist`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
 
   // para que undefined sea parte del flujo normal (útil en checkout order)
   getByItemId(itemId: number): Promise<ItemCart | undefined> {
@@ -36,33 +26,6 @@ export class MockItemCart implements ItemCartCrud {
     });
   }
 
-  // solo devuelve el primer item que encuentra
-  // getByCartId(cartId: number): Promise<ItemCart | undefined> {
-  //   return new Promise<ItemCart | undefined>((resolve, reject) => {
-  //     const result = this.itemCarts.find((ic: ItemCart) => ic.getCartId() === cartId);
-  //     if (!result) {
-  //       reject(new Error(`ItemCart with cart id ${cartId} doesn't exist`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
-
-  // devuelve un array de ItemCarts asi se obtiene todos los items del carrito
-  // deberia cambiar el crud de itemCart
-
-  // para que refleje correctamente la relación real de uno a muchos entre carrito y items.
-  // getByCartId(cartId: number): Promise<ItemCart[]> {
-  //   return new Promise<ItemCart[]>((resolve, reject) => {
-  //     const results = this.itemCarts.filter((ic: ItemCart) => ic.getCartId() === cartId);
-  //     if (results.length === 0) {
-  //       reject(new Error(`No items found for cart id ${cartId}`));
-  //     } else {
-  //       resolve(results);
-  //     }
-  //   });
-  // }
-
   // para que refleje correctamente la relación real de uno a muchos entre carrito y items.
   // y pueda usar el checkout order
   getByCartId(cartId: number): Promise<ItemCart[]> {
@@ -71,18 +34,6 @@ export class MockItemCart implements ItemCartCrud {
       resolve(results); // devuelve [] si no encuentra
     });
   }
-
-  // devuelve solo 1 producto del carrito
-  // getByProductId(productId: number): Promise<ItemCart | undefined> {
-  //   return new Promise<ItemCart | undefined>((resolve, reject) => {
-  //     const result = this.itemCarts.find((ic: ItemCart) => ic.getProductId() === productId);
-  //     if (!result) {
-  //       reject(new Error(`ItemCart with cart id ${productId} doesn't exist`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
 
   // devuelve un array de product asi se obtiene todos los productos del carrito
   // deberia cambiar el crud de itemCart
