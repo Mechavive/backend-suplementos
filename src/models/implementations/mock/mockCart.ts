@@ -36,7 +36,6 @@ export class MockCart implements CartCrud {
     return MockItemCart.getByCartId(cartId);
   }
 
-
   getById(id: number): Promise<Cart | undefined> {
     return new Promise((resolve) => {
       const result = this.carts.find((c) => c.getCartId() === id);
