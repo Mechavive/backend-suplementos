@@ -24,17 +24,17 @@ describe('ProductService - Integration Tests', () => {
       description: 'Suplemento de resistencia',
     };
 
-    const created: Product = await productService.createProduct(input);
+    const created: Product = await productService.create(input);
     expect(created.product_id).toBeDefined();
     expect(created.name).toBe(input.name);
 
     // Obtener producto por ID
-    const found = await productService.getProductById(created.product_id);
+    const found = await productService.getById(created.product_id);
     expect(found).toBeInstanceOf(Product);
     expect(found?.name).toBe(input.name);
 
     // Actualizar producto
-    const updated = await productService.updateProduct(created.product_id, {
+    const updated = await productService.update(created.product_id, {
       price: 130,
       stock: 20,
     });
@@ -50,11 +50,11 @@ describe('ProductService - Integration Tests', () => {
     expect(increased?.stock).toBe(25);
 
     // Eliminar producto
-    const deleted = await productService.deleteProduct(created.product_id);
+    const deleted = await productService.delete(created.product_id);
     expect(deleted).toBe(true);
 
     // Verificar que no existe
-    const shouldBeUndefined = await productService.getProductById(created.product_id);
+    const shouldBeUndefined = await productService.getById(created.product_id);
     expect(shouldBeUndefined).toBeUndefined();
   });
 
@@ -84,10 +84,10 @@ describe('ProductService - Integration Tests', () => {
     ];
 
     for (const input of inputs) {
-      await productService.createProduct(input);
+      await productService.create(input);
     }
 
-    const all = await productService.getAllProducts();
+    const all = await productService.getAll();
     expect(all.length).toBe(2);
     expect(all.map((p) => p.name)).toEqual(expect.arrayContaining(['Whey', 'Creatina']));
   });

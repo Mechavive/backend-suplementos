@@ -31,4 +31,11 @@ router.patch(
   OrderController.updateStatus,
 );
 
+// POST /api/orders/checkout/:userId
+// para simular el flujo entre cart-itemCart-orderDetail-order
+router.post(
+  '/checkout/:userId',
+  validate(userIdParamSchema, 'params'), // Zod valida y transforma userId
+  OrderController.checkout,
+);
 export default router;

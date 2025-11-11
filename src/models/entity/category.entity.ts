@@ -41,4 +41,12 @@ export class Category {
 
     this.description = description;
   }
+
+  public toJSON() {
+    return {
+      category_id: this.category_id,
+      name: this.name,
+      description: this.description,
+    };
+  }
 }

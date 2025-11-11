@@ -5,29 +5,29 @@ import { Product } from '../models/entity/product.entity';
 import { ProductUpdate, ProductInput } from '../dtos/product.dto';
 
 class ProductService {
-  async getAllProducts(): Promise<Product[]> {
+  async getAll(): Promise<Product[]> {
     return MockProductModel.getAll();
   }
 
-  async getProductById(id: number): Promise<Product | undefined> {
+  async getById(id: number): Promise<Product | undefined> {
     return MockProductModel.getById(id);
   }
 
-  async createProduct(data: ProductInput): Promise<Product> {
+  async create(data: ProductInput): Promise<Product> {
     return MockProductModel.create(data);
   }
 
-  async updateProduct(id: number, data: ProductUpdate): Promise<Product | undefined> {
+  async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
     return MockProductModel.update(id, data);
   }
 
-  async deleteProduct(id: number): Promise<boolean> {
+  async delete(id: number): Promise<boolean> {
     return MockProductModel.delete(id);
   }
 
   // Manejo del stock (lo usariamos en ordenes)
   async decreaseStock(productId: number, quantity: number): Promise<Product | undefined> {
-    const product = await this.getProductById(productId);
+    const product = await this.getById(productId);
     if (!product) throw new Error('Producto no encontrado');
     if (product.stock < quantity) throw new Error('Stock insuficiente');
 
@@ -35,7 +35,7 @@ class ProductService {
   }
 
   async increaseStock(productId: number, quantity: number): Promise<Product | undefined> {
-    const product = await this.getProductById(productId);
+    const product = await this.getById(productId);
     if (!product) throw new Error('Producto no encontrado');
 
     return MockProductModel.update(productId, { stock: product.stock + quantity });

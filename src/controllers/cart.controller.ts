@@ -62,13 +62,15 @@ class CartController {
     if (isNaN(id)) {
       return res.status(400).json({ error: 'ID inválido' });
     }
+
     try {
-      await CartService.delete(id);
       const cart = await CartService.getById(id);
       if (!cart) {
         return res.status(404).json({ error: 'Carrito no encontrado' });
       }
-      res.status(500).json({ message: 'Carrito eliminada correctamente' });
+
+      await CartService.delete(id);
+      res.status(200).json({ message: 'Carrito eliminado correctamente' });
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }

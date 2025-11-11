@@ -26,7 +26,7 @@ class ItemCartController {
     }
   }
   async getByCartId(req: Request, res: Response) {
-    const id = Number(req.params.id);
+    const id = Number(req.params.cartId);
     if (isNaN(id)) {
       return res.status(400).json({ error: 'Cart ID inválido' });
     }
@@ -63,18 +63,21 @@ class ItemCartController {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }
   }
+
   async delete(req: Request, res: Response) {
     const id = Number(req.params.id);
     if (isNaN(id)) {
       return res.status(400).json({ error: 'ID inválido' });
     }
+
     try {
-      await ItemCartService.delete(id);
-      const cart = await ItemCartService.getByItemId(id);
-      if (!cart) {
+      const item = await ItemCartService.getByItemId(id); //verificamos que el item existe
+      if (!item) {
         return res.status(404).json({ error: 'Item carrito no encontrado' });
       }
-      res.status(500).json({ message: 'Item carrito eliminado correctamente' });
+
+      await ItemCartService.delete(id); // si existe eliminamos
+      res.status(200).json({ message: 'Item carrito eliminado correctamente' });
     } catch (err: any) {
       res.status(500).json({ error: err.message || 'Error interno del servidor' });
     }
