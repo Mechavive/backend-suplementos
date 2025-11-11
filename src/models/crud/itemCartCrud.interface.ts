@@ -16,5 +16,5 @@ export interface ItemCartCrud {
   getByCartId(cartId: number): Promise<ItemCart[]>; // varios items
   getByProductId(productId: number): Promise<ItemCart[]>; // varios items
   create(itemC: ItemCartInput): Promise<ItemCart>;
-  delete(itemId: number): Promise<void>;
+  delete(itemId: number): Promise<boolean>;
 }

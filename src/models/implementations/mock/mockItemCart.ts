@@ -1,4 +1,4 @@
-import { ItemCart } from '../../entity/itemCart.entity';
+/* import { ItemCart } from '../../entity/itemCart.entity';
 import { ItemCartCrud } from '../../crud/itemCartCrud.interface';
 import { ItemCartInput } from '../../../dtos/itemCart.dto';
 
@@ -83,6 +83,74 @@ export class MockItemCart implements ItemCartCrud {
         `[MockItemCart] Remaining:`,
         this.itemCarts.map((ic) => ic.toJSON()),
       ); //logs para verificacion
+      resolve();
+    });
+  }
+}
+
+export default new MockItemCart(); */
+
+import { ItemCart } from '../../entity/itemCart.entity';
+import { ItemCartCrud } from '../../crud/itemCartCrud.interface';
+import { ItemCartInput } from '../../../dtos/itemCart.dto';
+
+export class MockItemCart implements ItemCartCrud {
+  private itemCarts: ItemCart[] = [];
+  private idCounter = 1;
+
+  constructor() {
+    this.itemCarts = [
+      new ItemCart(this.idCounter++, 1, 1, 4),
+      new ItemCart(this.idCounter++, 2, 2, 2),
+    ];
+  }
+
+  getAll(): Promise<ItemCart[]> {
+    return new Promise((resolve) => {
+      resolve(this.itemCarts);
+    });
+  }
+
+  getByItemId(itemId: number): Promise<ItemCart | undefined> {
+    return new Promise((resolve) => {
+      const item = this.itemCarts.find((ic) => ic.getItemId() === itemId);
+      resolve(item); // undefined si no existe
+    });
+  }
+
+  getByCartId(cartId: number): Promise<ItemCart[]> {
+    return new Promise((resolve) => {
+      const items = this.itemCarts.filter((ic) => ic.getCartId() === cartId);
+      resolve(items); // [] si no hay
+    });
+  }
+
+  getByProductId(productId: number): Promise<ItemCart[]> {
+    return new Promise((resolve) => {
+      const items = this.itemCarts.filter((ic) => ic.getProductId() === productId);
+      resolve(items); // [] si no hay
+    });
+  }
+
+  create(data: ItemCartInput): Promise<ItemCart> {
+    return new Promise((resolve) => {
+      const newItem = new ItemCart(this.idCounter++, data.cart_id, data.product_id, data.quantity);
+      this.itemCarts.push(newItem);
+      resolve(newItem);
+    });
+  }
+
+  delete(itemId: number): Promise<boolean> {
+    return new Promise((resolve) => {
+      const initialLength = this.itemCarts.length;
+      this.itemCarts = this.itemCarts.filter((ic) => ic.getItemId() !== itemId);
+      resolve(this.itemCarts.length < initialLength); // true si eliminó algo
+    });
+  }
+
+  clearByCartId(cartId: number): Promise<void> {
+    return new Promise((resolve) => {
+      this.itemCarts = this.itemCarts.filter((ic) => ic.getCartId() !== cartId);
       resolve();
     });
   }

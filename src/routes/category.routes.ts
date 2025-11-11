@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { validate } from '../middlewares/validate.middleware'; // middleware general con zod
 import { idParamSchema } from '../schemas/common.schema';
 import CategoryController from '../controllers/category.controller';
-import { CategorySchema } from '../schemas/category.schema';
+import { CategorySchema, CategoryUpdateSchema } from '../schemas/category.schema';
 
 const router = Router();
 
@@ -14,5 +14,11 @@ router.get('/:id', validate(idParamSchema, 'params'), CategoryController.getById
 router.post('/', validate(CategorySchema, 'body'), CategoryController.create);
 // DELETE /api/categories/:id
 router.delete('/:id', validate(idParamSchema, 'params'), CategoryController.delete);
-
+// PUT /api/categories/:id
+router.put(
+  '/:id',
+  validate(idParamSchema, 'params'), // valida que :id sea número
+  validate(CategoryUpdateSchema, 'body'), // valida body opcional
+  CategoryController.update,
+);
 export default router;
