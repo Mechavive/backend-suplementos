@@ -1,3 +1,5 @@
+// src/test/integration/aut.integration.test.ts
+// para pruebas de autenticación de usuarios existentes
 import request from 'supertest';
 import app from '../../app';
 import bcrypt from 'bcrypt';
