@@ -8,7 +8,7 @@ export type OrderItem = {
 
 export type OrderInput = {
   user_id: number;
-  total: number;
+  total?: number; // creado por el service
   items: OrderItem[];
 };
 

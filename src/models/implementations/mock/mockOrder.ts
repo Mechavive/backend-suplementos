@@ -69,7 +69,8 @@ export class MockOrder implements OrderCrud {
       this.idCounter++, // order_id
       data.user_id, // user_id
       'pending', // status
-      data.total, // total
+      //data.total, // total (calculado en el serviceOrder)
+      data.total ?? 0, // total (calculado en el serviceOrder), usa 0 si total es undefined
       new Date(), // order_date (actual)
     );
 

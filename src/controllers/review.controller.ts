@@ -28,6 +28,18 @@ class ReviewController {
     }
   }
 
+  // async getByProductId(req: Request, res: Response) {
+  //   try {
+  //     const productId = Number(req.params.productId);
+  //     if (isNaN(productId)) return res.status(400).json({ error: 'productId inválido' });
+
+  //     const reviews = await ReviewService.getByProductId(productId);
+  //     res.json(reviews);
+  //   } catch (error: any) {
+  //     res.status(500).json({ error: error.message || 'Error al obtener reviews del producto' });
+  //   }
+  // }
+
   async getByProductId(req: Request, res: Response) {
     try {
       const productId = Number(req.params.productId);
@@ -36,7 +48,7 @@ class ReviewController {
       const reviews = await ReviewService.getByProductId(productId);
       res.json(reviews);
     } catch (error: any) {
-      res.status(500).json({ error: error.message || 'Error al obtener reviews del producto' });
+      res.status(404).json({ error: error.message });
     }
   }
 

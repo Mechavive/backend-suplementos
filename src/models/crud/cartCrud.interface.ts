@@ -6,5 +6,5 @@ export interface CartCrud {
   getById(id: number): Promise<Cart | undefined>;
   getCartByUserId(userId: number): Promise<Cart | undefined>;
   create(cart: CartInput): Promise<Cart>;
-  delete(id: number): Promise<void>;
+  delete(id: number): Promise<boolean>;
 }

@@ -14,11 +14,36 @@ class ReviewService {
     return MockReview.getById(id);
   }
 
+  // async getByProductId(productId: number): Promise<Review[]> {
+  //   return MockReview.getByProductId(productId);
+  // }
+
   async getByProductId(productId: number): Promise<Review[]> {
+    // Verificar que el producto exista
+    const product = await MockProduct.getById(productId);
+    if (!product) {
+      throw new Error(`El producto con id ${productId} no existe`);
+    }
+
     return MockReview.getByProductId(productId);
   }
 
+  // async create(data: ReviewInput): Promise<Review> {
+  //   const newReview = await MockReview.create(data);
+
+  //   // Recalcular rating del producto
+  //   await this.updateProductRating(data.product_id);
+
+  //   return newReview;
+  // }
+
   async create(data: ReviewInput): Promise<Review> {
+    // Verificar que el producto exista
+    const product = await MockProduct.getById(data.product_id);
+    if (!product) {
+      throw new Error(`El producto con id ${data.product_id} no existe`);
+    }
+
     const newReview = await MockReview.create(data);
 
     // Recalcular rating del producto
@@ -40,17 +65,35 @@ class ReviewService {
     return success;
   }
 
-  // Método privado para recalcular rating
+  // Método privado para recalcular rating (si tiene rating inicial sobrescribe con el primer review y luego hace avg)
+  // private async updateProductRating(productId: number) {
+  //   const product = await MockProduct.getById(productId);
+  //   if (!product) return;
+
+  //   const reviews = await MockReview.getByProductId(productId);
+  //   const avg =
+  //     reviews.length === 0
+  //       ? 0
+  //       : reviews.reduce((sum, r) => sum + r.qualification, 0) / reviews.length;
+
+  //   product.rating = parseFloat(avg.toFixed(1));
+  // }
   private async updateProductRating(productId: number) {
     const product = await MockProduct.getById(productId);
     if (!product) return;
 
     const reviews = await MockReview.getByProductId(productId);
-    const avg =
-      reviews.length === 0
-        ? 0
-        : reviews.reduce((sum, r) => sum + r.qualification, 0) / reviews.length;
 
+    let totalScore = reviews.reduce((sum, r) => sum + r.qualification, 0);
+    let totalCount = reviews.length;
+
+    // Solo considerar rating inicial si ya existe
+    if (product.rating && product.rating > 0) {
+      totalScore += product.rating;
+      totalCount += 1;
+    }
+
+    const avg = totalCount === 0 ? 0 : totalScore / totalCount;
     product.rating = parseFloat(avg.toFixed(1));
   }
 }

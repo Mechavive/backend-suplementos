@@ -3,6 +3,7 @@
 import MockProductModel from '../models/implementations/mock/mockProduct';
 import { Product } from '../models/entity/product.entity';
 import { ProductUpdate, ProductInput } from '../dtos/product.dto';
+import CategoryService from './category.service';
 
 class ProductService {
   async getAll(): Promise<Product[]> {
@@ -13,11 +14,32 @@ class ProductService {
     return MockProductModel.getById(id);
   }
 
+  // async create(data: ProductInput): Promise<Product> {
+  //   return MockProductModel.create(data);
+  // }
+
+  // verifica que la categoria existe
   async create(data: ProductInput): Promise<Product> {
+    const category = await CategoryService.getById(data.category_id);
+    if (!category) {
+      throw new Error(`La categoría con id ${data.category_id} no existe`);
+    }
+
     return MockProductModel.create(data);
   }
 
+  /* async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
+    return MockProductModel.update(id, data);
+  } */
+
+  // verifica que la categoria existe
   async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
+    if (data.category_id) {
+      const category = await CategoryService.getById(data.category_id);
+      if (!category) {
+        throw new Error(`La categoría con id ${data.category_id} no existe`);
+      }
+    }
     return MockProductModel.update(id, data);
   }
 

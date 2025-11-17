@@ -1,4 +1,5 @@
 // src/tests/integration/user.auth.integration.test.ts
+// es útil para pruebas de registro + login sin tocar la DB real.
 import request from 'supertest';
 import express from 'express';
 import bodyParser from 'body-parser';
