@@ -138,6 +138,11 @@ export class UserService {
     return users.find((u) => u.email === email);
   }
 
+  async getByName(name: string): Promise<User | undefined> {
+    const users = await this.userRepo.getAll();
+    return users.find((u) => u.name.toLowerCase() === name.toLowerCase());
+  }
+
   // // Valida credenciales de login
 
   // async validateUser(email: string, password: string): Promise<User | null> {
