@@ -1,15 +1,64 @@
 import { OrderDetailInput } from '../../../dtos/orderDetail.dto';
 import { OrderDetailCrud } from '../../crud/orderDetailCrud.interface';
 import { OrderDetail } from '../../entity/orderDetail.entity';
+import MockItemCart from './mockItemCart';
 
 class MockOrderDetail implements OrderDetailCrud {
   private OrderDetails: OrderDetail[] = [];
   private idCounter = 1;
 
-  constructor() {
+  /* constructor() {
     this.OrderDetails = [
       new OrderDetail(this.idCounter++, 1, 1, 2, 15000),
       new OrderDetail(this.idCounter++, 1, 2, 1, 8000),
+    ];
+  } */
+
+  constructor() {
+    this.OrderDetails = [
+      // Carrito 1
+      new OrderDetail(
+        this.idCounter++,
+        1, // cart_id
+        1, // product_id
+        2, // quantity
+        15000,
+      ), // precio unitario
+      new OrderDetail(this.idCounter++, 1, 2, 1, 18000), // producto 2
+
+      // Carrito 2
+      new OrderDetail(this.idCounter++, 2, 2, 3, 18000), // producto 2
+      new OrderDetail(this.idCounter++, 2, 1, 1, 15000), // producto 1
+
+      // Carrito 3
+      new OrderDetail(this.idCounter++, 3, 1, 4, 15000), // producto 1
+
+      // Carrito 4
+      new OrderDetail(this.idCounter++, 4, 2, 2, 18000), // producto 2
+
+      // Carrito 5
+      new OrderDetail(this.idCounter++, 5, 1, 1, 15000), // producto 1
+
+      // Carrito 6
+      new OrderDetail(this.idCounter++, 6, 2, 5, 18000), // producto 2
+
+      // Carrito 7
+      new OrderDetail(this.idCounter++, 7, 1, 2, 15000), // producto 1
+
+      // Carrito 8
+      new OrderDetail(this.idCounter++, 8, 2, 3, 18000), // producto 2
+
+      // Carrito 9
+      new OrderDetail(this.idCounter++, 9, 1, 1, 15000), // producto 1
+
+      // Carrito 10
+      new OrderDetail(this.idCounter++, 10, 2, 2, 18000), // producto 2
+
+      // Carrito 11
+      new OrderDetail(this.idCounter++, 11, 1, 3, 15000), // producto 1
+
+      // Carrito 12
+      new OrderDetail(this.idCounter++, 12, 2, 1, 18000), // producto 2
     ];
   }
 

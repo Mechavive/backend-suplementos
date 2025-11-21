@@ -6,6 +6,10 @@ import { idParamSchema } from '../schemas/common.schema';
 import orderDetailController from '../controllers/orderDetail.controller';
 import { orderDetailSchema } from '../schemas/orderDetail.schema';
 
+import { authenticateJWT } from '../middlewares/auth.middleware';
+import { authorizeRole, authorizeSelfOrAdmin } from '../middlewares/role.middleware';
+import { UserRole } from '../models/entity/user.entity';
+
 const router = Router();
 
 // GET /api/orderDetails
@@ -17,8 +21,20 @@ router.get('/product/:productId', orderDetailController.getByProductId);
 // GET /api/orderDetails/order/:orderId
 router.get('/product/:productId', orderDetailController.getByOrderId);
 // POST /api/orderDetails
-router.post('/', validate(orderDetailSchema, 'body'), orderDetailController.create);
+router.post(
+  '/',
+  authenticateJWT,
+  authorizeRole(UserRole.ADMIN),
+  validate(orderDetailSchema, 'body'),
+  orderDetailController.create,
+);
 // DELETE /api/orderDetails/:id
-router.delete('/:id', validate(idParamSchema, 'params'), orderDetailController.delete);
+router.delete(
+  '/:id',
+  authenticateJWT,
+  authorizeRole(UserRole.ADMIN),
+  validate(idParamSchema, 'params'),
+  orderDetailController.delete,
+);
 
 export default router;

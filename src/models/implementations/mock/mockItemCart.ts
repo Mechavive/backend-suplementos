@@ -98,11 +98,29 @@ export class MockItemCart implements ItemCartCrud {
   private itemCarts: ItemCart[] = [];
   private idCounter = 1;
 
-  constructor() {
+  /* constructor() {
     this.itemCarts = [
       new ItemCart(this.idCounter++, 1, 1, 4),
       new ItemCart(this.idCounter++, 2, 2, 2),
     ];
+  } */
+
+  constructor() {
+    // Items para cada carrito
+    this.itemCarts.push(new ItemCart(this.idCounter++, 1, 1, 2)); // carrito 1, producto 1
+    this.itemCarts.push(new ItemCart(this.idCounter++, 1, 2, 1)); // carrito 1, producto 2
+    this.itemCarts.push(new ItemCart(this.idCounter++, 2, 2, 3)); // carrito 2, producto 2
+    this.itemCarts.push(new ItemCart(this.idCounter++, 2, 1, 1)); // carrito 2, producto 1
+    this.itemCarts.push(new ItemCart(this.idCounter++, 3, 1, 4)); // carrito 3
+    this.itemCarts.push(new ItemCart(this.idCounter++, 4, 2, 2)); // carrito 4
+    this.itemCarts.push(new ItemCart(this.idCounter++, 5, 1, 1)); // carrito 5
+    this.itemCarts.push(new ItemCart(this.idCounter++, 6, 2, 5)); // carrito 6
+    this.itemCarts.push(new ItemCart(this.idCounter++, 7, 1, 2)); // carrito 7
+    this.itemCarts.push(new ItemCart(this.idCounter++, 8, 2, 3)); // carrito 8
+    this.itemCarts.push(new ItemCart(this.idCounter++, 9, 1, 1)); // carrito 9
+    this.itemCarts.push(new ItemCart(this.idCounter++, 10, 2, 2)); // carrito 10
+    this.itemCarts.push(new ItemCart(this.idCounter++, 11, 1, 3)); // carrito 11
+    this.itemCarts.push(new ItemCart(this.idCounter++, 12, 2, 1)); // carrito 12
   }
 
   getAll(): Promise<ItemCart[]> {

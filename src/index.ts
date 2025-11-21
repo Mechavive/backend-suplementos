@@ -1,5 +1,5 @@
 // src/index.ts
-
+import './config/env.config';
 import app from './app.js';
 
 const PORT = process.env.PORT || 3000;

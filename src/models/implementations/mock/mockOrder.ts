@@ -7,7 +7,7 @@ import { OrderCrud } from '../../crud/orderCrud.interface';
 import { OrderDetail } from '../../entity/orderDetail.entity';
 
 // helper para hacer las ordenes con order detail
-function createOrderWithDetails(
+/* function createOrderWithDetails(
   idCounter: () => number,
   userId: number,
   status: OrderStatus,
@@ -26,13 +26,13 @@ function createOrderWithDetails(
   order.total = order.details.reduce((sum, d) => sum + d.getSubtotal(), 0);
 
   return order;
-}
+} */
 
 export class MockOrder implements OrderCrud {
   private orders: Order[] = [];
   private idCounter = 1;
 
-  constructor() {
+  /* constructor() {
     // Para pasar idCounter como función que devuelve y aumenta
     const nextId = () => this.idCounter++;
 
@@ -48,6 +48,83 @@ export class MockOrder implements OrderCrud {
         { productId: 104, quantity: 1, price: 80.5 },
       ]),
     ];
+  } */
+
+  constructor() {
+    const nextId = () => this.idCounter++;
+
+    this.orders = [
+      // Carrito 1
+      this.createOrderWithDetails(nextId, 1, 'pending', new Date('2023-10-01T10:00:00Z'), [
+        { productId: 1, quantity: 2, price: 15000 },
+        { productId: 2, quantity: 1, price: 18000 },
+      ]),
+      // Carrito 2
+      this.createOrderWithDetails(nextId, 2, 'paid', new Date('2023-10-02T11:30:00Z'), [
+        { productId: 2, quantity: 3, price: 18000 },
+        { productId: 1, quantity: 1, price: 15000 },
+      ]),
+      // Carrito 3
+      this.createOrderWithDetails(nextId, 3, 'pending', new Date('2023-10-03T12:00:00Z'), [
+        { productId: 1, quantity: 4, price: 15000 },
+      ]),
+      // Carrito 4
+      this.createOrderWithDetails(nextId, 4, 'paid', new Date('2023-10-04T13:00:00Z'), [
+        { productId: 2, quantity: 2, price: 18000 },
+      ]),
+      // Carrito 5
+      this.createOrderWithDetails(nextId, 5, 'pending', new Date('2023-10-05T14:00:00Z'), [
+        { productId: 1, quantity: 1, price: 15000 },
+      ]),
+      // Carrito 6
+      this.createOrderWithDetails(nextId, 6, 'paid', new Date('2023-10-06T15:00:00Z'), [
+        { productId: 2, quantity: 5, price: 18000 },
+      ]),
+      // Carrito 7
+      this.createOrderWithDetails(nextId, 7, 'pending', new Date('2023-10-07T16:00:00Z'), [
+        { productId: 1, quantity: 2, price: 15000 },
+      ]),
+      // Carrito 8
+      this.createOrderWithDetails(nextId, 8, 'paid', new Date('2023-10-08T17:00:00Z'), [
+        { productId: 2, quantity: 3, price: 18000 },
+      ]),
+      // Carrito 9
+      this.createOrderWithDetails(nextId, 9, 'pending', new Date('2023-10-09T18:00:00Z'), [
+        { productId: 1, quantity: 1, price: 15000 },
+      ]),
+      // Carrito 10
+      this.createOrderWithDetails(nextId, 10, 'paid', new Date('2023-10-10T19:00:00Z'), [
+        { productId: 2, quantity: 2, price: 18000 },
+      ]),
+      // Carrito 11
+      this.createOrderWithDetails(nextId, 11, 'pending', new Date('2023-10-11T20:00:00Z'), [
+        { productId: 1, quantity: 3, price: 15000 },
+      ]),
+      // Carrito 12
+      this.createOrderWithDetails(nextId, 12, 'paid', new Date('2023-10-12T21:00:00Z'), [
+        { productId: 2, quantity: 1, price: 18000 },
+      ]),
+    ];
+  }
+
+  private createOrderWithDetails(
+    idCounter: () => number,
+    userId: number,
+    status: OrderStatus,
+    date: Date,
+    detailsData: { productId: number; quantity: number; price: number }[],
+  ): Order {
+    const order = new Order(idCounter(), userId, status, 0, date);
+
+    order.details = detailsData.map(
+      (item, idx) =>
+        new OrderDetail(idx + 1, order.order_id, item.productId, item.quantity, item.price),
+    );
+
+    //order.total = order.details.reduce((sum, d) => sum.getSubtotal() + sum, 0);
+    order.total = order.details.reduce((sum, d) => sum + d.getSubtotal(), 0);
+
+    return order;
   }
 
   async getAll(): Promise<Order[]> {

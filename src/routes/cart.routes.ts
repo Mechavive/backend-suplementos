@@ -11,7 +11,7 @@ router.get('/', CartController.getAll);
 // GET /api/carts/:id
 router.get('/:id', validate(idParamSchema, 'params'), CartController.getById);
 // GET /api/carts/user/:userId
-router.get('/user/:userId', CartController.getCartByUserId);
+router.get('/user/:userId', validate(idParamSchema, 'params'), CartController.getCartByUserId);
 // POST /api/carts
 router.post('/', validate(cartSchema, 'body'), CartController.create);
 // DELETE /api/carts/:id
