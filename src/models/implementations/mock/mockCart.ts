@@ -8,8 +8,25 @@ import { ItemCart } from '../../entity/itemCart.entity';
 export class MockCart implements CartCrud {
   private carts: Cart[] = [];
   private idCounter = 1;
-  constructor() {
+  /* constructor() {
     this.carts = [new Cart(this.idCounter++, 1), new Cart(this.idCounter++, 2)];
+  }
+ */
+
+  constructor() {
+    // Carritos separados por usuario
+    this.carts.push(new Cart(this.idCounter++, 1)); // Usuario 1
+    this.carts.push(new Cart(this.idCounter++, 2)); // Usuario 2
+    this.carts.push(new Cart(this.idCounter++, 3)); // Usuario 3
+    this.carts.push(new Cart(this.idCounter++, 4)); // Usuario 4
+    this.carts.push(new Cart(this.idCounter++, 5)); // Usuario 5
+    this.carts.push(new Cart(this.idCounter++, 6)); // Usuario 6
+    this.carts.push(new Cart(this.idCounter++, 7)); // Usuario 7
+    this.carts.push(new Cart(this.idCounter++, 8)); // Usuario 8
+    this.carts.push(new Cart(this.idCounter++, 9)); // Usuario 9
+    this.carts.push(new Cart(this.idCounter++, 10)); // Usuario 10
+    this.carts.push(new Cart(this.idCounter++, 11)); // Usuario 11
+    this.carts.push(new Cart(this.idCounter++, 12)); // Usuario 12
   }
 
   // Para reforzar la relación 1:1 (un carrito por usuario)

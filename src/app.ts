@@ -10,9 +10,13 @@ import cartRoutes from './routes/cart.routes';
 import orderDetailRoutes from './routes/orderDetail.routes';
 import itemCartRoutes from './routes/itemCart.routes';
 import categoryRoutes from './routes/category.routes';
+import { apiKeyMiddleware } from './middlewares/apiKey.middleware';
 
 const app = express();
 app.use(express.json());
+
+// Protección GLOBAL: API KEY
+app.use(apiKeyMiddleware);
 
 app.use('/api/itemCarts', itemCartRoutes);
 app.use('/api/carts', cartRoutes);
