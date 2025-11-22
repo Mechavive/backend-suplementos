@@ -19,13 +19,26 @@ class ProductService {
   // }
 
   // verifica que la categoria existe
-  async create(data: ProductInput): Promise<Product> {
+  /* async create(data: ProductInput): Promise<Product> {
     const category = await CategoryService.getById(data.category_id);
     if (!category) {
       throw new Error(`La categoría con id ${data.category_id} no existe`);
     }
 
     return MockProductModel.create(data);
+  } */
+
+  // verifica que la categoria existe y si no hay imagen usa placeholder
+  async create(data: ProductInput): Promise<Product> {
+    const category = await CategoryService.getById(data.category_id);
+    if (!category) {
+      throw new Error(`La categoría con id ${data.category_id} no existe`);
+    }
+
+    // Si no hay imagen, usar el placeholder
+    const image = data.image || '/images/products/product-placeholder.webp';
+
+    return MockProductModel.create({ ...data, image });
   }
 
   /* async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
