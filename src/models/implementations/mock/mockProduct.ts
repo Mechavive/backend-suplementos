@@ -186,11 +186,12 @@ export class MockProduct implements ProductCrud {
   }
 
   async create(data: ProductInput): Promise<Product> {
+    const image = data.image || '/images/products/product-placeholder.webp';
     const newProduct = new Product(
       this.idCounter++,
       data.name,
       data.price,
-      data.image,
+      image,
       data.category_id,
       data.stock,
       data.rating,
