@@ -41,7 +41,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++, // product_id
         'Proteína Whey', // name
         15000, // price
-        'whey.jpg', // image
+        '/images/products/Proteina-Whey.webp', // image
         1, // Proteína    // category_id
         10, // stock
         4.5, // rating
@@ -52,7 +52,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Proteína Vegetal',
         18000,
-        'proteina_veg.jpg',
+        '/images/products/Proteina-Vegetal.webp', // en el backend http://localhost:3000/images/products/Proteina-Vegetal.webp
         1, // Proteína
         15,
         4.2,
@@ -65,7 +65,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Creatina Monohidratada',
         8000,
-        'creatina.jpg',
+        '/images/products/Creatina-Monohidratada.webp',
         2, // Creatina
         20,
         4.8,
@@ -76,7 +76,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Creatina Micronizada',
         9000,
-        'creatina_micro.jpg',
+        '/images/products/Creatina-Micronizada.webp',
         2, // Creatina
         12,
         4.7,
@@ -87,9 +87,9 @@ export class MockProduct implements ProductCrud {
       // Aminoácidos
       new Product(
         this.idCounter++,
-        'BCAA 2:1:1',
+        'BCAA_211',
         12000,
-        'bcaa.jpg',
+        '/images/products/BCAA-211.webp',
         3, // Aminoácidos
         25,
         4.6,
@@ -102,7 +102,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Pre-entreno Hardcore',
         14000,
-        'pre_entreno.jpg',
+        '/images/products/Preentreno-Hardcore.webp',
         4, // Pre-entreno
         18,
         4.4,
@@ -115,7 +115,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Multivitamínico Daily',
         7000,
-        'multivitaminico.jpg',
+        '/images/products/Multivitaminico-Daily.webp',
         5, // Vitaminas y Minerales
         30,
         4.3,
@@ -128,7 +128,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'L-Carnitina',
         9000,
-        'l_carnitina.jpg',
+        '/images/products/L-Carnitina.webp',
         6, // Quemadores de grasa
         20,
         4.1,
@@ -141,7 +141,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Electrolitos en Polvo',
         6000,
-        'electrolitos.jpg',
+        '/images/products/Electrolitos-en-Polvo.webp',
         7, // Hidratación y electrolitos
         25,
         4.5,
@@ -154,7 +154,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Barra Proteica Chocolate',
         3500,
-        'barra_choco.jpg',
+        '/images/products/Barra-Proteica-Chocolate.webp',
         8, // Snacks y barras
         40,
         4.6,
@@ -167,7 +167,7 @@ export class MockProduct implements ProductCrud {
         this.idCounter++,
         'Omega 3 1000mg',
         11000,
-        'omega3.jpg',
+        '/images/products/Omega-3-1000mg.webp',
         9, // Omega y ácidos grasos
         22,
         4.7,
