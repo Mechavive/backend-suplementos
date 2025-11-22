@@ -1,3 +1,4 @@
+// src/models/entity/product.entity.ts
 export class Product {
   constructor(
     private _product_id: number,
