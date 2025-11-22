@@ -39,7 +39,7 @@ export class MockReview implements ReviewCrud {
         1, // product_id
         4.5,
         'Excelente proteína, se disuelve muy bien y sabe genial',
-        new Date('2023-01-01'),
+        new Date('2025-01-01'),
       ),
       new Review(
         this.idCounter++,
@@ -47,7 +47,7 @@ export class MockReview implements ReviewCrud {
         1,
         4.4,
         'Muy buena, aunque un poco cara',
-        new Date('2023-01-10'),
+        new Date('2025-01-10'),
       ),
 
       // Producto 2: Proteína Vegetal, rating 4.2
@@ -57,7 +57,7 @@ export class MockReview implements ReviewCrud {
         2,
         4.2,
         'Ideal para veganos, buen sabor',
-        new Date('2023-02-05'),
+        new Date('2025-02-05'),
       ),
 
       // Producto 3: Creatina Monohidratada, rating 4.8
@@ -67,7 +67,7 @@ export class MockReview implements ReviewCrud {
         3,
         4.8,
         'Me ha dado muy buenos resultados en fuerza',
-        new Date('2023-02-15'),
+        new Date('2025-02-15'),
       ),
       new Review(
         this.idCounter++,
@@ -75,7 +75,7 @@ export class MockReview implements ReviewCrud {
         3,
         4.9,
         'Excelente creatina, se nota la diferencia en mis entrenamientos',
-        new Date('2023-02-20'),
+        new Date('2025-02-20'),
       ),
 
       // Producto 4: BCAA 2:1:1, rating 4.6
@@ -85,7 +85,7 @@ export class MockReview implements ReviewCrud {
         4,
         4.6,
         'Perfecto para recuperación después de entrenar',
-        new Date('2023-03-01'),
+        new Date('2025-03-01'),
       ),
 
       // Producto 5: Pre-entreno Hardcore, rating 4.4
@@ -95,7 +95,7 @@ export class MockReview implements ReviewCrud {
         5,
         4.4,
         'Me da mucha energía antes del entrenamiento',
-        new Date('2023-03-05'),
+        new Date('2025-03-05'),
       ),
 
       // Producto 6: Multivitamínico Daily, rating 4.3
@@ -105,7 +105,7 @@ export class MockReview implements ReviewCrud {
         6,
         4.3,
         'Me siento con más energía y vitaminas cubiertas',
-        new Date('2023-03-10'),
+        new Date('2025-03-10'),
       ),
 
       // Producto 7: L-Carnitina, rating 4.1
@@ -115,7 +115,7 @@ export class MockReview implements ReviewCrud {
         7,
         4.1,
         'Buena ayuda para acompañar dieta de pérdida de grasa',
-        new Date('2023-03-15'),
+        new Date('2025-03-15'),
       ),
 
       // Producto 8: Electrolitos en Polvo, rating 4.5
@@ -125,7 +125,7 @@ export class MockReview implements ReviewCrud {
         8,
         4.5,
         'Muy útil para mantenerme hidratado en entrenamientos largos',
-        new Date('2023-03-20'),
+        new Date('2025-03-20'),
       ),
 
       // Producto 9: Barra Proteica Chocolate, rating 4.6
@@ -135,7 +135,7 @@ export class MockReview implements ReviewCrud {
         9,
         4.6,
         'Deliciosa y práctica como snack post-entreno',
-        new Date('2023-03-25'),
+        new Date('2025-03-25'),
       ),
 
       // Producto 10: Omega 3 1000mg, rating 4.7
@@ -145,7 +145,7 @@ export class MockReview implements ReviewCrud {
         10,
         4.7,
         'Siento mis articulaciones más flexibles y buena digestión',
-        new Date('2023-03-30'),
+        new Date('2025-03-30'),
       ),
     ];
   }
@@ -163,13 +163,14 @@ export class MockReview implements ReviewCrud {
   }
 
   async create(data: ReviewInput): Promise<Review> {
+    const date = data.date || new Date();
     const newReview = new Review(
       this.idCounter++,
       data.user_id,
       data.product_id,
       data.qualification,
       data.comment,
-      data.date,
+      date,
     );
     this.reviews.push(newReview);
     return newReview;
