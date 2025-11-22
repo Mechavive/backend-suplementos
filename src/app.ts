@@ -25,11 +25,11 @@ app.use(express.json());
 // Servir archivos estáticos (imagenes públicas) sin protección (antes de la API KEY)
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
 
-// 👉 DEBUG: ver qué headers llegan a Render
-app.use((req, res, next) => {
-  console.log('HEADERS RECIBIDOS:', req.headers);
-  next();
-});
+//  DEBUG: ver qué headers llegan a Render
+// app.use((req, res, next) => {
+//   console.log('HEADERS RECIBIDOS:', req.headers);
+//   next();
+// });
 
 // Protección GLOBAL: API KEY
 app.use(apiKeyMiddleware);
