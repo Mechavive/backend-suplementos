@@ -7,5 +7,6 @@ export const reviewSchema = z.object({
   product_id: z.number().int().positive(),
   qualification: z.number().int().min(1).max(5),
   comment: z.string().min(3),
-  date: z.coerce.date(),
+  //date: z.coerce.date(),
+  date: z.coerce.date().optional(),
 });
