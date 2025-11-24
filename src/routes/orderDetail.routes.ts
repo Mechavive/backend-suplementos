@@ -19,7 +19,7 @@ router.get('/:id', validate(idParamSchema, 'params'), orderDetailController.getB
 // GET /api/orderDetails/product/:productId
 router.get('/product/:productId', orderDetailController.getByProductId);
 // GET /api/orderDetails/order/:orderId
-router.get('/product/:productId', orderDetailController.getByOrderId);
+router.get('/order/:orderId', orderDetailController.getByOrderId);
 // POST /api/orderDetails
 router.post(
   '/',
