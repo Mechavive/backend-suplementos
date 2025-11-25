@@ -14,10 +14,6 @@ class ReviewService {
     return MockReview.getById(id);
   }
 
-  // async getByProductId(productId: number): Promise<Review[]> {
-  //   return MockReview.getByProductId(productId);
-  // }
-
   async getByProductId(productId: number): Promise<Review[]> {
     // Verificar que el producto exista
     const product = await MockProduct.getById(productId);
@@ -27,15 +23,6 @@ class ReviewService {
 
     return MockReview.getByProductId(productId);
   }
-
-  // async create(data: ReviewInput): Promise<Review> {
-  //   const newReview = await MockReview.create(data);
-
-  //   // Recalcular rating del producto
-  //   await this.updateProductRating(data.product_id);
-
-  //   return newReview;
-  // }
 
   async create(data: ReviewInput): Promise<Review> {
     // Verificar que el producto exista
@@ -66,18 +53,6 @@ class ReviewService {
   }
 
   // Método privado para recalcular rating (si tiene rating inicial sobrescribe con el primer review y luego hace avg)
-  // private async updateProductRating(productId: number) {
-  //   const product = await MockProduct.getById(productId);
-  //   if (!product) return;
-
-  //   const reviews = await MockReview.getByProductId(productId);
-  //   const avg =
-  //     reviews.length === 0
-  //       ? 0
-  //       : reviews.reduce((sum, r) => sum + r.qualification, 0) / reviews.length;
-
-  //   product.rating = parseFloat(avg.toFixed(1));
-  // }
   private async updateProductRating(productId: number) {
     const product = await MockProduct.getById(productId);
     if (!product) return;

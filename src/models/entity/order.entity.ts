@@ -56,11 +56,6 @@ export class Order {
     return this._order_id;
   }
 
-  // TODO: creo que seria mejor hacerlo en el service
-  // public recalculateTotal(): void {
-  //   this._total = this._details.reduce((sum, d) => sum + d.getSubtotal(), 0);
-  // }
-
   // Método auxiliar para exportar el objeto plano
   public toJSON() {
     return {

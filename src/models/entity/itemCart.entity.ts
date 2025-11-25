@@ -1,6 +1,6 @@
 export class ItemCart {
   constructor(
-    private item_id: number, // para la base de datos: ID único global del ítem (clave primaria)
+    private item_id: number, // para la base de datos o mock: ID único global del ítem (clave primaria)
     private cart_id: number,
     private product_id: number,
     private quantity: number,

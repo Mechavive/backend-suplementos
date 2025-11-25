@@ -6,49 +6,9 @@ import { OrderCrud } from '../../crud/orderCrud.interface';
 // para conectar con orderDetail
 import { OrderDetail } from '../../entity/orderDetail.entity';
 
-// helper para hacer las ordenes con order detail
-/* function createOrderWithDetails(
-  idCounter: () => number,
-  userId: number,
-  status: OrderStatus,
-  date: Date,
-  detailsData: { productId: number; quantity: number; price: number }[],
-): Order {
-  const order = new Order(idCounter(), userId, status, 0, date); // total inicial 0
-
-  // Crear detalles
-  order.details = detailsData.map(
-    (item, idx) =>
-      new OrderDetail(idx + 1, order.order_id, item.productId, item.quantity, item.price),
-  );
-
-  // Calcular total automáticamente
-  order.total = order.details.reduce((sum, d) => sum + d.getSubtotal(), 0);
-
-  return order;
-} */
-
 export class MockOrder implements OrderCrud {
   private orders: Order[] = [];
   private idCounter = 1;
-
-  /* constructor() {
-    // Para pasar idCounter como función que devuelve y aumenta
-    const nextId = () => this.idCounter++;
-
-    this.orders = [
-      createOrderWithDetails(nextId, 1, 'pending', new Date('2023-10-01T10:00:00Z'), [
-        { productId: 101, quantity: 2, price: 20 },
-        { productId: 102, quantity: 3, price: 20 },
-      ]),
-      createOrderWithDetails(nextId, 2, 'paid', new Date('2023-10-02T11:30:00Z'), [
-        { productId: 103, quantity: 5, price: 50 },
-      ]),
-      createOrderWithDetails(nextId, 1, 'cancel', new Date('2023-10-03T09:45:00Z'), [
-        { productId: 104, quantity: 1, price: 80.5 },
-      ]),
-    ];
-  } */
 
   constructor() {
     const nextId = () => this.idCounter++;
@@ -146,7 +106,6 @@ export class MockOrder implements OrderCrud {
       this.idCounter++, // order_id
       data.user_id, // user_id
       'pending', // status
-      //data.total, // total (calculado en el serviceOrder)
       data.total ?? 0, // total (calculado en el serviceOrder), usa 0 si total es undefined
       new Date(), // order_date (actual)
     );

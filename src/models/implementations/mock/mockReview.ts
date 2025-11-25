@@ -8,28 +8,6 @@ export class MockReview implements ReviewCrud {
   private reviews: Review[] = [];
   private idCounter = 1;
 
-  /* constructor() {
-    // Datos iniciales simulados como instancias de Review
-    this.reviews = [
-      new Review(
-        this.idCounter++, // review_id
-        1, // user_id
-        2, // product_id
-        4.5, // qualification
-        'Excelente producto', // comment
-        new Date('2023-01-01'), // date
-      ),
-      new Review(
-        this.idCounter++,
-        2,
-        2,
-        4.8,
-        'Muy bueno, aunque llegó tarde',
-        new Date('2023-02-15'),
-      ),
-    ];
-  } */
-
   constructor() {
     this.reviews = [
       // Producto 1: Proteína Whey, rating 4.5

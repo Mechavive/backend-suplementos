@@ -7,33 +7,6 @@ export class MockProduct implements ProductCrud {
   private products: Product[] = [];
   private idCounter = 1;
 
-  /* constructor() {
-    // Datos iniciales simulados como instancias de Product
-    this.products = [
-      new Product(
-        this.idCounter++, // product_id
-        'Proteína Whey', // name
-        15000, // price
-        'whey.jpg', // image
-        1, // category_id
-        10, // stock
-        4.5, // rating
-        'Optimum', // brand
-        'Proteína en polvo para aumentar masa muscular.', // description
-      ),
-      new Product(
-        this.idCounter++,
-        'Creatina',
-        8000,
-        'creatina.jpg',
-        1,
-        20,
-        4.8,
-        'MyProtein',
-        'Creatina monohidratada pura.',
-      ),
-    ];
-  } */
   constructor() {
     this.products = [
       // Proteínas

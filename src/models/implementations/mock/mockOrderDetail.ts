@@ -7,13 +7,6 @@ class MockOrderDetail implements OrderDetailCrud {
   private OrderDetails: OrderDetail[] = [];
   private idCounter = 1;
 
-  /* constructor() {
-    this.OrderDetails = [
-      new OrderDetail(this.idCounter++, 1, 1, 2, 15000),
-      new OrderDetail(this.idCounter++, 1, 2, 1, 8000),
-    ];
-  } */
-
   constructor() {
     this.OrderDetails = [
       // Carrito 1
@@ -22,8 +15,8 @@ class MockOrderDetail implements OrderDetailCrud {
         1, // cart_id
         1, // product_id
         2, // quantity
-        15000,
-      ), // precio unitario
+        15000, // precio unitario
+      ),
       new OrderDetail(this.idCounter++, 1, 2, 1, 18000), // producto 2
 
       // Carrito 2

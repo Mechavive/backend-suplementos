@@ -17,19 +17,8 @@ import { apiKeyMiddleware } from './middlewares/apiKey.middleware';
 const app = express();
 app.use(express.json());
 
-// TODO: en el backend localhost: http://localhost:3000/images/products/Proteina-Vegetal.webp
-
-// TODO: En el frontend quedaria como:
-// https://backend-suplementos.onrender.com/images/products/ProteínaWhey.webp
-
 // Servir archivos estáticos (imagenes públicas) sin protección (antes de la API KEY)
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
-
-//  DEBUG: ver qué headers llegan a Render
-// app.use((req, res, next) => {
-//   console.log('HEADERS RECIBIDOS:', req.headers);
-//   next();
-// });
 
 // Protección GLOBAL: API KEY
 app.use(apiKeyMiddleware);
