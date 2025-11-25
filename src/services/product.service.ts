@@ -14,10 +14,6 @@ class ProductService {
     return MockProductModel.getById(id);
   }
 
-  // async create(data: ProductInput): Promise<Product> {
-  //   return MockProductModel.create(data);
-  // }
-
   // verifica que la categoria existe
   /* async create(data: ProductInput): Promise<Product> {
     const category = await CategoryService.getById(data.category_id);
@@ -40,10 +36,6 @@ class ProductService {
 
     return MockProductModel.create({ ...data, image });
   }
-
-  /* async update(id: number, data: ProductUpdate): Promise<Product | undefined> {
-    return MockProductModel.update(id, data);
-  } */
 
   // verifica que la categoria existe
   async update(id: number, data: ProductUpdate): Promise<Product | undefined> {

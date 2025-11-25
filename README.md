@@ -1,5 +1,26 @@
 #  Trabajo Final Integrador — Backend eCommerce (Node + TypeScript + PostgreSQL)
 
+### Guia de Instalación:
+
+```bash
+# Clonar repositorio
+git clone < URL del repo >
+
+# Dentro de la carpeta del repo de backend
+# Instalar dependencias
+npm install
+
+# Compilar TypeScript
+npm run build
+
+# Correr la app con el dist
+npm run start
+
+# Ejecutar tests
+npm run test
+
+```
+
 ---
 
 ### Comandos

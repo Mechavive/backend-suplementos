@@ -6,16 +6,6 @@ export class MockCategory implements CategoryCrud {
   private Categories: Category[] = [];
   private idCounter: number = 1;
 
-  // constructor() {
-  //   this.Categories = [
-  //     new Category(
-  //       this.idCounter++,
-  //       'Proteína',
-  //       'Todos los productos que suplementen necesidades proteicas',
-  //     ),
-  //     new Category(this.idCounter++, 'Creatina', 'Todos los suplementos de Creatina'),
-  //   ];
-  // }
   constructor() {
     this.Categories = [
       new Category(
@@ -72,18 +62,6 @@ export class MockCategory implements CategoryCrud {
     });
   }
 
-  // getById(id: number): Promise<Category | undefined> {
-  //   return new Promise<Category | undefined>((resolve, reject) => {
-  //     const result = this.Categories.find((category: Category) => category.getCategoryId() === id);
-
-  //     if (!result) {
-  //       reject(new Error(`Category with id ${id} doesnt exists`));
-  //     } else {
-  //       resolve(result);
-  //     }
-  //   });
-  // }
-
   getById(id: number): Promise<Category | undefined> {
     return new Promise<Category | undefined>((resolve) => {
       const result = this.Categories.find((category) => category.getCategoryId() === id);
@@ -98,21 +76,6 @@ export class MockCategory implements CategoryCrud {
       resolve(newCategory);
     });
   }
-
-  // delete(id: number): Promise<void> {
-  //   return new Promise((resolve, reject) => {
-  //     const index = this.Categories.findIndex(
-  //       (category: Category) => category.getCategoryId() === id,
-  //     );
-
-  //     if (index == -1) {
-  //       reject(new Error(`Category with id ${id} doesnt exist`));
-  //     } else {
-  //       this.Categories.splice(index, 1);
-  //       resolve();
-  //     }
-  //   });
-  // }
 
   delete(id: number): Promise<boolean> {
     return new Promise<boolean>((resolve) => {

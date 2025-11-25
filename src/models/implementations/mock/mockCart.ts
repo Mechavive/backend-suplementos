@@ -8,10 +8,6 @@ import { ItemCart } from '../../entity/itemCart.entity';
 export class MockCart implements CartCrud {
   private carts: Cart[] = [];
   private idCounter = 1;
-  /* constructor() {
-    this.carts = [new Cart(this.idCounter++, 1), new Cart(this.idCounter++, 2)];
-  }
- */
 
   constructor() {
     // Carritos separados por usuario

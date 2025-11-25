@@ -15,9 +15,7 @@ class CartService {
   async create(cart: CartInput): Promise<Cart> {
     return MockCartModel.create(cart);
   }
-  // async delete(id: number): Promise<void> {
-  //   return MockCartModel.delete(id);
-  // }
+
   async delete(id: number): Promise<void> {
     const deleted = await MockCartModel.delete(id);
     if (!deleted) {

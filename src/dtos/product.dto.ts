@@ -8,8 +8,7 @@ export type ProductUpdate = Partial<Omit<Product, 'product_id'>>;
 export type ProductInput = {
   name: string;
   price: number;
-  //image: string;
-  image?: string;
+  image?: string; //opcional
   category_id: number;
   stock: number;
   rating: number;

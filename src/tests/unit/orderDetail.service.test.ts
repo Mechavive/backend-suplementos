@@ -18,7 +18,6 @@ describe('OrderDetail Service - Unit Tests', () => {
     createdOrderDetail = await orderDetailService.create(sampleOrderDetail);
   });
 
-  // para que me de info en consola
   it('should create a new order detail', async () => {
     //console.log('Created OrderDetail:', createdOrderDetail);
     expect(createdOrderDetail).toHaveProperty('order_detail_id');
