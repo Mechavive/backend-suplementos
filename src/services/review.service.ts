@@ -52,7 +52,7 @@ class ReviewService {
     return success;
   }
 
-  // Método privado para recalcular rating (si tiene rating inicial sobrescribe con el primer review y luego hace avg)
+  // Método privado para recalcular rating
   private async updateProductRating(productId: number) {
     const product = await MockProduct.getById(productId);
     if (!product) return;
