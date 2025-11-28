@@ -77,18 +77,6 @@ export class MockCart implements CartCrud {
     });
   }
 
-  // delete(id: number): Promise<void> {
-  //   return new Promise<void>((resolve, reject) => {
-  //     const index = this.carts.findIndex((cart: Cart) => cart.getCartId() === id);
-  //     if (index === -1) {
-  //       reject(new Error(`Cart with id:${id} doesn't exist`));
-  //     } else {
-  //       this.carts.splice(index, 1);
-  //       resolve();
-  //     }
-  //   });
-  // }
-
   delete(id: number): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       const initialLength = this.carts.length;

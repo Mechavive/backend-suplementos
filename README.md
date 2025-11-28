@@ -1,24 +1,32 @@
-#  Trabajo Final Integrador — Backend eCommerce (Node + TypeScript + PostgreSQL)
+#  Trabajo Final Integrador — Backend eCommerce (Node + TypeScript) PostgreSQL mas adelante
 
-### Guia de Instalación:
+### Guia de Instalación Local:
 
+1) Clonar repositorio
 ```bash
-# Clonar repositorio
 git clone < URL del repo >
+```
+Dentro de la carpeta del repo de backend
 
-# Dentro de la carpeta del repo de backend
-# Instalar dependencias
+2) Crear archivo de variables de entorno .env con lo enviado al mail
+
+3) Instalar dependencias
+```bash
 npm install
+```
 
-# Compilar TypeScript
+4) Compilar TypeScript
+```bash
 npm run build
-
-# Correr la app con el dist
+```
+5) Correr la app con el dist compilado
+```bash
 npm run start
+```
 
-# Ejecutar tests
+Opcional - Ejecutar tests (en otra terminal)
+```bash
 npm run test
-
 ```
 
 ---
@@ -33,6 +41,16 @@ npx jest tests/unit/order.service.test.ts
 ```
 npx jest tests/integration/product.integration.test.ts
 ```
+
+### Para utilizar el deploy en render usar la direccion:
+```
+https://backend-suplementos.onrender.com/api/
+```
+Por ejemplo en postman:
+```
+GET https://backend-suplementos.onrender.com/api/products
+```
+
 ## 📘 Entidades y Relaciones
 
 ### 🔹 **User**
@@ -164,6 +182,31 @@ npx jest tests/integration/product.integration.test.ts
 
 ---
 
+## Dependencias
+
+## 📦 Dependencias del Backend
+
+- **axios**: Cliente HTTP para realizar peticiones a servicios externos.  
+- **bcrypt**: Encripta contraseñas de forma segura para el registro y login.  
+- **cors**: Permite que el frontend se comunique con el backend desde otro dominio (Cross-Origin Resource Sharing).  
+- **jsonwebtoken**: Implementa autenticación mediante tokens JWT.   
+- **zod**: Valida datos de entrada mediante esquemas tipados. 
+
+## 🛠️ Dependencias de Desarrollo
+
+- **husky**: Ejecuta hooks de Git como pre-commit y pre-push para asegurar calidad.  
+- **eslint**: Linter que detecta errores y aplica buenas prácticas en el código.  
+- **prettier**: Formateador automático que mantiene un estilo de código consistente.  
+- **typescript**: Lenguaje de tipado estático que mejora la robustez del backend.  
+- **jest**: Framework para realizar pruebas unitarias y de integración.
+
+---
+
+### Consideraciones finales o limitaciones
+
+El backend y el frontend son prototipos, cada uno con su mock
+
+---
 ## 📁 Estructura del Proyecto
 ```
 
