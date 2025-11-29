@@ -18,7 +18,7 @@ export const authorizeRole = (...roles: UserRole[]) => {
 
 // Middleware para autorizar si es admin o si accede a su propio recurso
 export const authorizeSelfOrAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
-  // el validate(idParamSchema, 'params') esta antes de authorizeSelfOrAdmin en las rutas id siempre va a estar
+  // el validate(idParamSchema, 'params') esta antes de authorizeSelfOrAdmin en las rutas: id siempre va a estar
   const id = req.params.id!;
 
   if (!req.user) return res.status(401).json({ message: 'No autenticado' });
