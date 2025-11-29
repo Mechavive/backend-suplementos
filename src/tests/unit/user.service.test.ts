@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 
 describe('UserService - Unit Tests', () => {
   beforeEach(() => {
-    // Reiniciamos los datos del mock antes de cada test
     mockUser.clear();
   });
 

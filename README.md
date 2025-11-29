@@ -51,6 +51,11 @@ Por ejemplo en postman:
 GET https://backend-suplementos.onrender.com/api/products
 ```
 
+### Coleccion en postman publicada:
+```
+https://documenter.getpostman.com/view/48339002/2sB3dJxrxx
+```
+
 ## 📘 Entidades y Relaciones
 
 ### 🔹 **User**
